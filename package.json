@@ -7,10 +7,13 @@
     "build": "next build",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy:demo": "opennextjs-cloudflare build && opennextjs-cloudflare deploy --env demo",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "upload:demo": "opennextjs-cloudflare build && opennextjs-cloudflare upload --env demo",
     "start": "next start",
     "lint": "eslint",
     "check": "npm run lint && npm run build",
+    "cf:build": "opennextjs-cloudflare build",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {

@@ -1,0 +1,41 @@
+name: Preview
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    environment:
+      name: preview
+      url: ${{ steps.preview.outputs.deployment-url }}
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.13.0"
+          cache: npm
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build OpenNext worker
+        run: npm run cf:build
+
+      - name: Upload preview version
+        id: preview
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.BURNT_CLOUDFLARE_API_TOKEN }}
+          wranglerVersion: "4"
+          command: versions upload --env demo --message "PR ${{ github.event.pull_request.number }}" --preview-alias pr-${{ github.event.pull_request.number }}
+          packageManager: npm

@@ -3,6 +3,7 @@
   "name": "verona-website",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-06-16",
+  "preview_urls": true,
   "compatibility_flags": [
     "nodejs_compat",
     "global_fetch_strictly_public"
@@ -18,6 +19,7 @@
     "demo": {
       "account_id": "9dee30da5bcc25895788d8e4f71fe46d",
       "name": "verona-website-test",
+      "preview_urls": true,
       "workers_dev": true
     }
   }

@@ -19,6 +19,9 @@
 - Config: `wrangler.jsonc`, `open-next.config.ts`, and `public/_headers`.
 - Generated output: `.open-next/`, ignored from git and ESLint.
 - Local commands: `npm run dev`, `npm run preview`, `npm run deploy`.
+- Burnt parity: this repo mirrors `burnt-labs/burnt-www` by using Wrangler
+  configuration, Cloudflare security/cache headers, a push-to-main deploy
+  workflow, and a pull-request preview upload workflow.
 
 ## Header
 

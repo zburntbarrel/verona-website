@@ -32,6 +32,11 @@ npm run deploy
 
 Do not deploy, tag, or publish a release without Jean's explicit approval.
 
+GitHub Actions mirrors the Burnt website repo pattern:
+
+- `.github/workflows/deploy.yml` deploys `main` to the demo Worker.
+- `.github/workflows/preview.yml` uploads a Cloudflare preview version for PRs.
+
 ## Project Docs
 
 - `docs/verona-design-system.md`: Figma-derived brand system notes.
