@@ -5,6 +5,7 @@ import {
   Hedvig_Letters_Serif,
   Inter,
 } from "next/font/google";
+import { site } from "@/lib/site";
 import "./globals.css";
 
 // Free substitutes for the brand fonts:
@@ -39,9 +40,27 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Verona — Making AI Intelligent",
-  description:
-    "Verona makes user-verified data portable, private, and programmable, so agents can transact on information the user actually owns.",
+  metadataBase: new URL(site.url),
+  title: {
+    default: site.title,
+    template: "%s | Verona",
+  },
+  description: site.description,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: site.title,
+    description: site.description,
+    url: site.url,
+    siteName: site.name,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.title,
+    description: site.description,
+  },
 };
 
 export default function RootLayout({

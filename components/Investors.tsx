@@ -65,9 +65,18 @@ function LogoCell({
   const aRef = useRef(aIdx);
   const bRef = useRef(bIdx);
   const frontRef = useRef(front);
-  aRef.current = aIdx;
-  bRef.current = bIdx;
-  frontRef.current = front;
+
+  useEffect(() => {
+    aRef.current = aIdx;
+  }, [aIdx]);
+
+  useEffect(() => {
+    bRef.current = bIdx;
+  }, [bIdx]);
+
+  useEffect(() => {
+    frontRef.current = front;
+  }, [front]);
 
   useEffect(() => {
     if (!enabled) return;

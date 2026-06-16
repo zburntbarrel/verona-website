@@ -76,7 +76,7 @@ export default function AiCapable() {
 
       <div className="relative z-10 mx-auto grid w-full grid-cols-1 items-center gap-12 px-6 py-6 md:px-12 lg:grid-cols-2 lg:gap-[112px] lg:px-[60px]">
         {/* Text content */}
-        <div className="flex flex-col items-center gap-3 text-center lg:items-end lg:text-right">
+        <div className="flex flex-col items-start gap-3 text-left">
           <h2 className="font-[family-name:var(--font-garamond)] text-[40px] leading-[1.1] text-linen sm:text-[56px]">
             <SplitText
               text="Today's AI is capable, until it counts."

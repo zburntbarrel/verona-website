@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { externalLinks } from "@/lib/site";
 import SplitText from "./SplitText";
 
 export default function Hero() {
@@ -49,18 +50,32 @@ export default function Hero() {
       ref={root}
       className="flex min-h-[calc(100svh-72px)] flex-col justify-end bg-linen py-5"
     >
-      <div className="flex w-full flex-1 flex-col justify-end gap-[112px] px-[60px] py-6">
-        {/* Text content — right aligned */}
-        <div className="flex w-full flex-col items-end gap-3 text-right text-sea">
+      <div className="flex w-full flex-1 flex-col justify-end gap-16 px-6 py-6 md:px-12 lg:gap-[112px] lg:px-[60px]">
+        <div className="flex w-full max-w-[580px] flex-col items-start gap-4 text-left text-sea">
+          <p className="eyebrow text-rosso">The intelligence layer for AI</p>
           <h1 className="font-[family-name:var(--font-garamond)] text-[40px] leading-[1.1] sm:text-[56px]">
             <SplitText text="Making AI Intelligent" charClassName="hero-char" />
           </h1>
-          <p className="w-[333px] max-w-full font-[family-name:var(--font-hedvig-serif)] text-[14px] leading-6">
+          <p className="max-w-[420px] font-[family-name:var(--font-hedvig-serif)] text-[16px] leading-7">
             <SplitText text="Verona makes user-verified data portable, private, and programmable, so agents can transact on information the user actually owns." charClassName="hero-char" />
           </p>
+          <div className="flex flex-wrap gap-3 pt-2">
+            <a href={externalLinks.ero} target="_blank" rel="noreferrer" className="primary-action">
+              Try Ero
+            </a>
+            <a href={externalLinks.litepaper} target="_blank" rel="noreferrer" className="secondary-action text-sea">
+              Read more
+            </a>
+          </div>
+          <div className="flex flex-wrap gap-2 pt-4 font-[family-name:var(--font-hedvig-sans)] text-[11px] uppercase leading-none tracking-[0.1em] text-sea/70">
+            <span>Verify once</span>
+            <span aria-hidden>·</span>
+            <span>Reuse everywhere</span>
+            <span aria-hidden>·</span>
+            <span>Expose nothing</span>
+          </div>
         </div>
 
-        {/* Oversized VERONA wordmark */}
         <div className="flex w-full flex-col justify-center">
           <svg
             viewBox="0 0 1320 228"
