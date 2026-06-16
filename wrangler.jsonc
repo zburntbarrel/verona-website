@@ -13,5 +13,12 @@
   },
   "observability": {
     "enabled": true
+  },
+  "env": {
+    "demo": {
+      "account_id": "9dee30da5bcc25895788d8e4f71fe46d",
+      "name": "verona-website-test",
+      "workers_dev": true
+    }
   }
 }
