@@ -5,6 +5,8 @@ import { LogoGlyph, VeronaWordmark } from "@/components/icons";
 
 type FrameTone = "dark" | "light";
 
+type ImageMode = "cover" | "tile";
+
 type StoryFrame = {
   id: string;
   chapter: string;
@@ -13,13 +15,12 @@ type StoryFrame = {
   pullQuote?: string;
   image: string;
   imageFallback: string;
+  imageMode?: ImageMode;
   tone: FrameTone;
   caption: string;
 };
 
-// Drop production imagery at /public/assets/story/<id>.jpg (portrait, ~1600x2000).
-// Until those exist, each frame falls back to one of the floral hero assets so
-// the layout still reads correctly.
+// Each frame is wired to one of the brand assets in /public/assets/story.
 const FRAMES: StoryFrame[] = [
   {
     id: "00-cover",
@@ -28,8 +29,9 @@ const FRAMES: StoryFrame[] = [
     titleAccent: "& vision",
     pullQuote:
       "How do you prove something is real when it only exists on a screen? Verona started with that question, years before it had the name.",
-    image: "/assets/story/00-cover.jpg",
+    image: "/assets/story/damask-blue.png",
     imageFallback: "/assets/floral-birds-pine.jpg",
+    imageMode: "tile",
     tone: "dark",
     caption: "Cover",
   },
@@ -38,7 +40,7 @@ const FRAMES: StoryFrame[] = [
     chapter: "Opening proof",
     title: "What makes a digital thing",
     titleAccent: "real?",
-    image: "/assets/story/01-opening-proof.jpg",
+    image: "/assets/story/grass-violet.png",
     imageFallback: "/assets/floral-blue-birds.jpg",
     tone: "dark",
     caption: "An overture",
@@ -49,8 +51,9 @@ const FRAMES: StoryFrame[] = [
     title: "Burnt Banksy",
     pullQuote:
       "Once the physical copy was gone, the digital one was the original.",
-    image: "/assets/story/02-burnt-banksy.jpg",
+    image: "/assets/story/damask-red.png",
     imageFallback: "/assets/floral-pink-rose.jpg",
+    imageMode: "tile",
     tone: "dark",
     caption: "2021 · A burn, a livestream, a question",
   },
@@ -59,7 +62,7 @@ const FRAMES: StoryFrame[] = [
     chapter: "Chapter 02",
     title: "Burnt",
     pullQuote: "The technology held up. The people gave up.",
-    image: "/assets/story/03-burnt.jpg",
+    image: "/assets/story/roses-dark.png",
     imageFallback: "/assets/floral-tropical-bird.jpg",
     tone: "dark",
     caption: "Crypto for people who don't want crypto",
@@ -69,7 +72,7 @@ const FRAMES: StoryFrame[] = [
     chapter: "Chapter 03",
     title: "XION",
     pullQuote: "If the chain is invisible, what is it actually for?",
-    image: "/assets/story/04-xion.jpg",
+    image: "/assets/floral-blue-birds.jpg",
     imageFallback: "/assets/get-verona-floral.jpg",
     tone: "dark",
     caption: "A chain you never see",
@@ -79,7 +82,7 @@ const FRAMES: StoryFrame[] = [
     chapter: "Chapter 04",
     title: "The turn",
     pullQuote: "The product was never abstraction. It was proof.",
-    image: "/assets/story/05-the-turn.jpg",
+    image: "/assets/floral-tropical-bird.jpg",
     imageFallback: "/assets/floral-birds-pine.jpg",
     tone: "dark",
     caption: "Companies answered the question",
@@ -90,8 +93,9 @@ const FRAMES: StoryFrame[] = [
     title: "Verona",
     pullQuote:
       "What enterprises had been paying for one verification at a time is now a network anyone can build on.",
-    image: "/assets/story/06-verona.jpg",
+    image: "/assets/story/cornflower-brown.png",
     imageFallback: "/assets/floral-blue-birds.jpg",
+    imageMode: "tile",
     tone: "dark",
     caption: "A network of proven facts",
   },
@@ -102,7 +106,7 @@ const FRAMES: StoryFrame[] = [
     titleAccent: "Verona means truth.",
     pullQuote:
       "Verus, the Latin root for verify and veritas. A company proving what's real took the name that means true.",
-    image: "/assets/story/07-the-name.jpg",
+    image: "/assets/story/columns-venice.png",
     imageFallback: "/assets/floral-pink-rose.jpg",
     tone: "dark",
     caption: "Verus · veritas · verify",
@@ -113,7 +117,7 @@ const FRAMES: StoryFrame[] = [
     title: "What we see",
     pullQuote:
       "It started with one proof, made with fire. The ones that come after it will not need the spectacle.",
-    image: "/assets/story/08-what-we-see.jpg",
+    image: "/assets/floral-pink-rose.jpg",
     imageFallback: "/assets/floral-tropical-bird.jpg",
     tone: "dark",
     caption: "The intelligence layer · 2026 →",
@@ -133,6 +137,7 @@ function Frame({ frame, index, total }: { frame: StoryFrame; index: number; tota
     >
       <div
         className="story-frame-image"
+        data-mode={frame.imageMode ?? "cover"}
         style={{
           backgroundImage: `url('${frame.image}'), url('${frame.imageFallback}')`,
         }}

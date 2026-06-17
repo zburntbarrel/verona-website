@@ -996,9 +996,17 @@ details > summary::-webkit-details-marker {
 .story-frame-image {
   position: absolute;
   inset: 0;
-  background-size: cover;
   background-position: center;
+}
+
+.story-frame-image[data-mode="cover"] {
+  background-size: cover;
   background-repeat: no-repeat;
+}
+
+.story-frame-image[data-mode="tile"] {
+  background-size: 420px auto;
+  background-repeat: repeat;
 }
 
 .story-frame-overlay {
