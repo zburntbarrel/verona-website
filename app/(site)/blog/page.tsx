@@ -45,7 +45,7 @@ export default function BlogPage() {
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="site-container relative py-24 md:py-32">
+        <div className="site-container relative py-40 md:py-56 lg:py-64">
           <Link
             href={`/blog/${featured.slug}`}
             className="relative mx-auto block max-w-[760px] bg-linen p-10 md:p-16"
@@ -84,7 +84,7 @@ export default function BlogPage() {
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="site-container relative py-24 md:py-32">
+        <div className="site-container relative py-40 md:py-56 lg:py-64">
           <div className="relative mx-auto max-w-[760px] bg-linen p-10 md:p-16">
             <LogoGlyph className="absolute right-8 top-8 h-7 w-auto text-sea md:right-10 md:top-10" />
             <h2 className="display-heading text-[40px] md:text-[60px]">
