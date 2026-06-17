@@ -29,9 +29,8 @@ const FRAMES: StoryFrame[] = [
     titleAccent: "& vision",
     pullQuote:
       "How do you prove something is real when it only exists on a screen? Verona started with that question, years before it had the name.",
-    image: "/assets/story/damask-blue.png",
+    image: "/assets/story/rococo-earth.jpg",
     imageFallback: "/assets/floral-birds-pine.jpg",
-    imageMode: "tile",
     tone: "dark",
     caption: "Cover",
   },
@@ -40,7 +39,7 @@ const FRAMES: StoryFrame[] = [
     chapter: "Opening proof",
     title: "What makes a digital thing",
     titleAccent: "real?",
-    image: "/assets/story/grass-violet.png",
+    image: "/assets/story/rococo-girl-running.jpg",
     imageFallback: "/assets/floral-blue-birds.jpg",
     tone: "dark",
     caption: "An overture",
@@ -51,9 +50,8 @@ const FRAMES: StoryFrame[] = [
     title: "Burnt Banksy",
     pullQuote:
       "Once the physical copy was gone, the digital one was the original.",
-    image: "/assets/story/damask-red.png",
+    image: "/assets/story/rococo-swing.jpg",
     imageFallback: "/assets/floral-pink-rose.jpg",
-    imageMode: "tile",
     tone: "dark",
     caption: "2021 · A burn, a livestream, a question",
   },
@@ -62,7 +60,7 @@ const FRAMES: StoryFrame[] = [
     chapter: "Chapter 02",
     title: "Burnt",
     pullQuote: "The technology held up. The people gave up.",
-    image: "/assets/story/roses-dark.png",
+    image: "/assets/story/rococo-cythera.jpg",
     imageFallback: "/assets/floral-tropical-bird.jpg",
     tone: "dark",
     caption: "Crypto for people who don't want crypto",
@@ -93,9 +91,8 @@ const FRAMES: StoryFrame[] = [
     title: "Verona",
     pullQuote:
       "What enterprises had been paying for one verification at a time is now a network anyone can build on.",
-    image: "/assets/story/cornflower-brown.png",
+    image: "/assets/story/rococo-garden-statue.webp",
     imageFallback: "/assets/floral-blue-birds.jpg",
-    imageMode: "tile",
     tone: "dark",
     caption: "A network of proven facts",
   },
@@ -106,7 +103,7 @@ const FRAMES: StoryFrame[] = [
     titleAccent: "Verona means truth.",
     pullQuote:
       "Verus, the Latin root for verify and veritas. A company proving what's real took the name that means true.",
-    image: "/assets/story/columns-venice.png",
+    image: "/assets/story/rococo-oath.jpg",
     imageFallback: "/assets/floral-pink-rose.jpg",
     tone: "dark",
     caption: "Verus · veritas · verify",
@@ -163,10 +160,8 @@ function Frame({ frame, index, total }: { frame: StoryFrame; index: number; tota
             <p className="story-frame-quote">{frame.pullQuote}</p>
           ) : null}
           <footer className="story-frame-card-footer">
-            <div className="story-frame-card-caption">
-              <VeronaWordmark className="mb-2 h-[16px] w-auto" />
-              <span>{frame.caption}</span>
-            </div>
+            <VeronaWordmark className="story-frame-card-mark-bottom h-[16px] w-auto" />
+            <p className="story-frame-card-caption">{frame.caption}</p>
             <p className="story-frame-card-index">
               {String(index + 1).padStart(2, "0")}/{String(total).padStart(2, "0")}
             </p>
@@ -184,16 +179,31 @@ export default function StoryStrip() {
     const el = stripRef.current;
     if (!el) return;
 
-    // Native smooth scroll. Why this works and the previous lerp didn't:
-    // CSS scroll-snap was snapping every intermediate rAF frame back to
-    // the nearest cover, so any small `scrollLeft += delta` was rubber-
-    // banded to 0. We dropped snap and now let the browser's own smooth
-    // scroller handle easing.
-    //
-    // Pagination: each wheel turn moves by one full frame. The cooldown
-    // prevents a fast trackpad fling from skipping past covers.
+    // Custom rAF tween. Browser-native scrollTo({behavior:"smooth"}) is
+    // ~300ms with fixed easing and feels abrupt for editorial pacing.
+    // easeInOutCubic over 900ms gives soft entry, mid-glide, soft landing.
+    const DURATION = 900;
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    let activeTween: number | null = null;
+    const tweenTo = (target: number, duration = DURATION) => {
+      if (activeTween !== null) cancelAnimationFrame(activeTween);
+      const start = el.scrollLeft;
+      const delta = target - start;
+      if (delta === 0) return;
+      const startTime = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - startTime) / duration);
+        el.scrollLeft = start + delta * easeInOutCubic(t);
+        if (t < 1) activeTween = requestAnimationFrame(tick);
+        else activeTween = null;
+      };
+      activeTween = requestAnimationFrame(tick);
+    };
+
     let cooldown = false;
-    const cooldownMs = 520;
+    const cooldownMs = DURATION + 60;
 
     const advance = (direction: 1 | -1) => {
       if (cooldown) return;
@@ -202,7 +212,7 @@ export default function StoryStrip() {
       const targetIndex = Math.round(current / w) + direction;
       const maxIndex = Math.round((el.scrollWidth - w) / w);
       const clamped = Math.max(0, Math.min(maxIndex, targetIndex));
-      el.scrollTo({ left: clamped * w, behavior: "smooth" });
+      tweenTo(clamped * w);
       cooldown = true;
       window.setTimeout(() => {
         cooldown = false;
@@ -228,15 +238,16 @@ export default function StoryStrip() {
         advance(-1);
       } else if (e.key === "Home") {
         e.preventDefault();
-        el.scrollTo({ left: 0, behavior: "smooth" });
+        tweenTo(0, 1100);
       } else if (e.key === "End") {
         e.preventDefault();
-        el.scrollTo({ left: el.scrollWidth, behavior: "smooth" });
+        tweenTo(el.scrollWidth - el.clientWidth, 1100);
       }
     };
     el.addEventListener("keydown", onKey);
 
     return () => {
+      if (activeTween !== null) cancelAnimationFrame(activeTween);
       el.removeEventListener("wheel", onWheel);
       el.removeEventListener("keydown", onKey);
     };
