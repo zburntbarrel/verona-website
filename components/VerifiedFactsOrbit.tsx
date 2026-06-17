@@ -153,7 +153,7 @@ export default function VerifiedFactsOrbit() {
     group.rotation.x = -0.18;
     scene.add(group);
 
-    const lineColor = new THREE.Color("#1e3a8a");
+    const lineColor = new THREE.Color("#f8f7f3");
 
     const coreGeom = new THREE.BufferGeometry().setFromPoints(
       buildEllipsePoints("core"),
@@ -161,7 +161,7 @@ export default function VerifiedFactsOrbit() {
     const coreMat = new THREE.LineBasicMaterial({
       color: lineColor,
       transparent: true,
-      opacity: 0.68,
+      opacity: 0.85,
     });
     const coreLine = new THREE.Line(coreGeom, coreMat);
     coreLine.position.z = 0.05;

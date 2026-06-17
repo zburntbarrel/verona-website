@@ -4,10 +4,8 @@ import { site } from "@/lib/site";
 const routes = [
   "",
   "/story",
-  "/vision",
   "/get-verona",
   "/blog",
-  "/press",
   "/media-kit",
   "/community",
 ];

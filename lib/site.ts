@@ -44,16 +44,6 @@ export const navigation: NavGroup[] = [
         description: "How Burnt, XION, and Verona became one proof network.",
       },
       {
-        label: "Vision",
-        href: "/vision",
-        description: "The intelligence layer Verona is building for AI.",
-      },
-      {
-        label: "Press",
-        href: "/press",
-        description: "Coverage, announcements, and media notes.",
-      },
-      {
         label: "Media Kit",
         href: "/media-kit",
         description: "Logos, brand assets, bios, and descriptions.",
@@ -124,7 +114,6 @@ export const footerGroups = [
   {
     label: "Brand",
     links: [
-      { label: "Press", href: "/press" },
       { label: "Media Kit", href: "/media-kit" },
       { label: "PR Team", href: "mailto:press@verona.dev", external: true },
     ],

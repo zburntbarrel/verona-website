@@ -7,22 +7,19 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-type Logo = { src: string; alt: string };
+type Logo = { src: string; alt: string; scale?: number; invert?: boolean };
 
 const LOGOS: Logo[] = [
   { src: "/assets/investors/animoca.svg", alt: "Animoca Brands" },
-  { src: "/assets/investors/multicoin.svg", alt: "Multicoin Capital" },
+  { src: "/assets/investors/multicoin.png", alt: "Multicoin Capital", invert: true, scale: 1.6 },
   { src: "/assets/investors/goldentree.svg", alt: "GoldenTree Asset Management" },
   { src: "/assets/investors/spartan.svg", alt: "Spartan" },
   { src: "/assets/investors/laser-digital.svg", alt: "Laser Digital" },
-  { src: "/assets/investors/mechanism.svg", alt: "Mechanism Capital" },
   { src: "/assets/investors/sfermion.svg", alt: "Sfermion" },
   { src: "/assets/investors/draper-dragon.svg", alt: "Draper Dragon" },
   { src: "/assets/investors/figment.svg", alt: "Figment Capital" },
   { src: "/assets/investors/vessel.svg", alt: "Vessel" },
-  { src: "/assets/investors/morningstar.svg", alt: "Morningstar Ventures" },
   { src: "/assets/investors/innovating.svg", alt: "Innovating Capital" },
-  { src: "/assets/investors/anti-capital.svg", alt: "Anti Capital" },
   { src: "/assets/investors/hex-trust.svg", alt: "Hex Trust" },
   { src: "/assets/investors/mh-ventures.svg", alt: "MH Ventures" },
   { src: "/assets/investors/stateless.svg", alt: "Stateless Ventures" },
@@ -40,6 +37,10 @@ function LogoImg({ logo, className }: { logo: Logo; className?: string }) {
     <img
       src={logo.src}
       alt={logo.alt}
+      style={{
+        ...(logo.scale ? { transform: `scale(${logo.scale})` } : {}),
+        ...(logo.invert ? { filter: "brightness(0) invert(1)" } : {}),
+      }}
       className={`max-h-11 w-auto max-w-[72%] object-contain ${className ?? ""}`}
     />
   );
@@ -135,7 +136,6 @@ function LogoCell({
 
 export default function Investors() {
   const root = useRef<HTMLElement>(null);
-  const bgRef = useRef<HTMLDivElement>(null);
   const [cycling, setCycling] = useState(false);
 
   useGSAP(
@@ -148,22 +148,6 @@ export default function Investors() {
         setCycling(false);
         return;
       }
-
-      // Subtle parallax on the background image as the section scrolls through.
-      gsap.fromTo(
-        bgRef.current,
-        { yPercent: -12 },
-        {
-          yPercent: 12,
-          ease: "none",
-          scrollTrigger: {
-            trigger: root.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        }
-      );
 
       // Reveal: left text first, then the logos. Start cycling once logos are in.
       const tl = gsap.timeline({
@@ -208,19 +192,19 @@ export default function Investors() {
     <section
       ref={root}
       className="relative overflow-hidden bg-sea py-20 text-linen"
+      style={{
+        backgroundImage: "url('/assets/investors/bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
     >
-      {/* Background image + left-to-right gradient overlay */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div ref={bgRef} className="absolute inset-0 scale-125">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/assets/investors/bg.png"
-            alt=""
-            className="size-full object-cover"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(25,37,80,0.7)] to-sea" />
-      </div>
+      {/* Left-to-right gradient overlay keeps logos legible against the fixed background */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[rgba(25,37,80,0.7)] to-sea"
+      />
 
       <div className="relative mx-auto grid w-full grid-cols-1 items-center gap-12 px-6 py-6 md:px-12 lg:grid-cols-2 lg:gap-[112px] lg:px-[60px]">
         {/* Heading */}
@@ -235,7 +219,7 @@ export default function Investors() {
         {/* Cycling 3x4 logo grid */}
         <div className="grid grid-cols-3 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10">
           {Array.from({ length: CELLS }).map((_, i) => (
-            <LogoCell key={i} seed={i} enabled={cycling} />
+            <LogoCell key={i} seed={i} enabled={false} />
           ))}
         </div>
       </div>

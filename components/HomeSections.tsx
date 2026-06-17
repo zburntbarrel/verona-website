@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { externalLinks } from "@/lib/site";
+import VerifiedFactsOrbit from "@/components/VerifiedFactsOrbit";
 
 const proofSources = [
   ["Websites", "Prove what a site shows about you, without handing over the login."],
@@ -53,23 +54,25 @@ function CtaLink({
   href,
   children,
   external,
+  floral = "1",
 }: {
   href: string;
   children: React.ReactNode;
   external?: boolean;
+  floral?: "1" | "2" | "3";
 }) {
-  const className = "inline-flex h-11 items-center justify-center rounded-[4px] border border-current px-4 font-[family-name:var(--font-hedvig-sans)] text-[13px] uppercase tracking-[0.1em] transition-colors hover:bg-current hover:text-linen";
+  const className = "cta-link inline-flex h-11 items-center justify-center rounded-[4px] border border-current px-4 font-[family-name:var(--font-hedvig-sans)] text-[13px] uppercase tracking-[0.1em]";
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noreferrer" className={className}>
+      <a href={href} target="_blank" rel="noreferrer" className={className} data-floral={floral}>
         {children}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={className}>
+    <Link href={href} className={className} data-floral={floral}>
       {children}
     </Link>
   );
@@ -214,14 +217,18 @@ export function BlogPreview() {
 
 export function TokenSection() {
   return (
-    <section className="site-band bg-sea text-linen">
+    <section
+      className="site-band bg-sea text-linen"
+      style={{
+        backgroundImage: "linear-gradient(rgba(25,37,80,0.78), rgba(25,37,80,0.78)), url('/assets/button-accent.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="site-container grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-        <div className="network-orbit" aria-label="Network token loop">
-          <span>Apps</span>
-          <span>Agents</span>
-          <strong>$VERONA</strong>
-          <span>Facts</span>
-          <span>Demand</span>
+        <div className="w-full">
+          <VerifiedFactsOrbit />
         </div>
         <div className="section-copy">
           <p className="eyebrow text-sky">$VERONA</p>
@@ -230,8 +237,8 @@ export function TokenSection() {
             Apps and agents feed a growing verified network, demand draws on it, and $VERONA is how you hold a piece of it.
           </p>
           <div className="flex flex-wrap gap-3">
-            <CtaLink href="/get-verona">Get $VERONA</CtaLink>
-            <CtaLink href={externalLinks.litepaper} external>
+            <CtaLink href="/get-verona" floral="3">Get $VERONA</CtaLink>
+            <CtaLink href={externalLinks.litepaper} external floral="3">
               Read the litepaper
             </CtaLink>
           </div>
@@ -252,10 +259,10 @@ export function CloseAndSignup() {
             The network is live, the proofs are real, and your agents are waiting.
           </p>
           <div className="flex flex-wrap gap-3">
-            <CtaLink href={externalLinks.ero} external>
+            <CtaLink href={externalLinks.ero} external floral="1">
               Try Ero
             </CtaLink>
-            <CtaLink href="/get-verona">Get $VERONA</CtaLink>
+            <CtaLink href="/get-verona" floral="2">Get $VERONA</CtaLink>
           </div>
         </div>
 

@@ -1,70 +1,23 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
-
 export default function VideoFounder() {
-  const root = useRef<HTMLElement>(null);
-  const video = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      const prefersReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      // Reduced motion: skip the pinned scrub, just show it at full width.
-      if (prefersReduced) {
-        gsap.set(video.current, { scale: 1 });
-        return;
-      }
-
-      // Pin the section and scrub the video from very small up to 100% of the
-      // screen width as the user scrolls. Once it hits full width the section
-      // unpins and the user continues to the section below.
-      gsap.fromTo(
-        video.current,
-        { scale: 0.24 },
-        {
-          scale: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: root.current,
-            start: "top top",
-            end: "+=130%",
-            scrub: true,
-            pin: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        }
-      );
-    },
-    { scope: root }
-  );
-
   return (
     <section
-      ref={root}
-      className="relative flex h-screen items-center justify-center overflow-hidden"
+      className="relative flex h-screen items-center justify-center overflow-hidden bg-sea"
       style={{
-        backgroundColor: "#e5dccb",
-        backgroundImage: "url('/assets/get-verona-floral.jpg')",
+        backgroundImage: "url('/assets/investors/bg.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
       }}
     >
-      {/* Video placeholder — base size is full viewport width; it's scaled down
-          at the start and grows to scale(1) === 100vw on scroll. */}
+      {/* Same gradient overlay as the Investors section above, so the navy reads as one continuous surface */}
       <div
-        ref={video}
-        className="flex aspect-video w-screen origin-center items-center justify-center bg-white will-change-transform"
-      >
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[rgba(25,37,80,0.7)] to-sea"
+      />
+      <div className="relative flex aspect-video w-screen items-center justify-center bg-white">
         <span className="font-[family-name:var(--font-inter)] text-[68px] font-bold text-black/30">
           VIDEO
         </span>
