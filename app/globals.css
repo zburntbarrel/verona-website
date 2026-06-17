@@ -819,7 +819,9 @@ details > summary::-webkit-details-marker {
     font-size: 11px;
     line-height: 1.35;
     letter-spacing: 0.01em;
-    color: var(--color-linen);
+    /* currentColor so the label follows the parent section's text color:
+       linen on dark sea sections, sea on light linen sections. */
+    color: currentColor;
     opacity: 0.92;
     white-space: pre-line;
     pointer-events: none;
@@ -1335,16 +1337,16 @@ body:has(.story-strip) .story-strip {
 }
 
 .logo-glyph-flying .logo-glyph-bird-top {
-  animation: logo-bird-top-fly 1.6s ease-in-out both;
+  animation: logo-bird-top-fly 1.8s cubic-bezier(0.45, 0.05, 0.2, 1) both;
 }
 
 .logo-glyph-flying .logo-glyph-bird-bottom {
-  animation: logo-bird-bottom-fly 1.6s ease-in-out both;
+  animation: logo-bird-bottom-fly 1.8s cubic-bezier(0.45, 0.05, 0.2, 1) both;
 }
 
 /* Subtle diamond pulse while the birds are gone, so it doesn't sit dead. */
 .logo-glyph-flying .logo-glyph-diamond {
-  animation: logo-diamond-pulse 1.6s ease-in-out both;
+  animation: logo-diamond-pulse 1.8s ease-in-out both;
 }
 
 /* Curved departure / return. Intermediate keyframes trace an arc through
@@ -1352,13 +1354,21 @@ body:has(.story-strip) .story-strip {
    curve, holds off-screen, then re-enters from a different angle and
    curves back into the wordmark. */
 @keyframes logo-bird-top-fly {
+  /* fly out (0-36%) */
   0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
   10%  { transform: translate(-3px, 3px) rotate(-6deg); opacity: 1; }
   22%  { transform: translate(12px, -10px) rotate(10deg); opacity: 1; }
   36%  { transform: translate(36px, -26px) rotate(26deg); opacity: 0; }
-  58%  { transform: translate(36px, -26px) rotate(26deg); opacity: 0; }
-  72%  { transform: translate(28px, -8px) rotate(-8deg); opacity: 0.35; }
-  88%  { transform: translate(10px, 3px) rotate(-4deg); opacity: 0.9; }
+  /* hold off-screen (36-50%) */
+  50%  { transform: translate(36px, -26px) rotate(26deg); opacity: 0; }
+  /* fly in smoothly (50-100%) — six waypoints with a slow opacity ramp
+     so the bird phases in from the distance instead of popping. The
+     rotation eases through zero around 82% (no sudden flips). */
+  58%  { transform: translate(34px, -24px) rotate(24deg); opacity: 0.06; }
+  66%  { transform: translate(30px, -18px) rotate(18deg); opacity: 0.2; }
+  74%  { transform: translate(22px, -10px) rotate(8deg); opacity: 0.5; }
+  82%  { transform: translate(13px, -3px) rotate(0deg); opacity: 0.78; }
+  91%  { transform: translate(5px, 1px) rotate(-3deg); opacity: 0.95; }
   100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
 }
 
@@ -1367,9 +1377,12 @@ body:has(.story-strip) .story-strip {
   10%  { transform: translate(3px, -3px) rotate(6deg); opacity: 1; }
   22%  { transform: translate(-12px, 10px) rotate(-10deg); opacity: 1; }
   36%  { transform: translate(-36px, 26px) rotate(-26deg); opacity: 0; }
-  58%  { transform: translate(-36px, 26px) rotate(-26deg); opacity: 0; }
-  72%  { transform: translate(-28px, 8px) rotate(8deg); opacity: 0.35; }
-  88%  { transform: translate(-10px, -3px) rotate(4deg); opacity: 0.9; }
+  50%  { transform: translate(-36px, 26px) rotate(-26deg); opacity: 0; }
+  58%  { transform: translate(-34px, 24px) rotate(-24deg); opacity: 0.06; }
+  66%  { transform: translate(-30px, 18px) rotate(-18deg); opacity: 0.2; }
+  74%  { transform: translate(-22px, 10px) rotate(-8deg); opacity: 0.5; }
+  82%  { transform: translate(-13px, 3px) rotate(0deg); opacity: 0.78; }
+  91%  { transform: translate(-5px, -1px) rotate(3deg); opacity: 0.95; }
   100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
 }
 

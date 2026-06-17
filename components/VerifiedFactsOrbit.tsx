@@ -153,7 +153,12 @@ export default function VerifiedFactsOrbit() {
     group.rotation.x = -0.18;
     scene.add(group);
 
-    const lineColor = new THREE.Color("#f8f7f3");
+    // Read the container's cascaded color so the orbit lines invert to match
+    // the parent section's theme: linen on dark sea sections, sea on light
+    // linen sections. One component, both backgrounds.
+    const lineColor = new THREE.Color(
+      getComputedStyle(container).color || "#192550",
+    );
 
     const coreGeom = new THREE.BufferGeometry().setFromPoints(
       buildEllipsePoints("core"),
