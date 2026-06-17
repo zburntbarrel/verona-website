@@ -263,11 +263,10 @@ details > summary::-webkit-details-marker {
     background-image: url('/assets/button-accent.jpg');
   }
 
-  /* Hover swaps the in-body primary CTA (Read the Litepaper et al, class
-     .primary-action) to the blue toile pattern with a navy overlay that
-     keeps the white button text readable. The smaller navbar GET $VERONA
-     button (.accent-button) and the signup-form button are intentionally
-     excluded — they keep their solid hover state. */
+  /* Hover treatments per CTA variant:
+     - .primary-action (in-body Read the Litepaper et al) → blue toile floral
+     - .accent-button  (navbar Get $VERONA)              → embroidered eagle
+     A navy overlay sits on top of each to keep the white CTA text legible. */
   .primary-action:hover {
     background-image:
       linear-gradient(rgb(25 37 80 / 0.42), rgb(25 37 80 / 0.42)),
@@ -275,6 +274,16 @@ details > summary::-webkit-details-marker {
     background-size: cover, 260px auto;
     background-position: center, center;
     background-repeat: no-repeat, repeat;
+    border-color: rgb(76 177 223 / 0.85);
+  }
+
+  .accent-button:hover {
+    background-image:
+      linear-gradient(rgb(25 37 80 / 0.48), rgb(25 37 80 / 0.48)),
+      url('/assets/accent-hover-eagle.png');
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
     border-color: rgb(76 177 223 / 0.85);
   }
 
