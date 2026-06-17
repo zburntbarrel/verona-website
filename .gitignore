@@ -49,3 +49,6 @@ next-env.d.ts
 # claude code local settings
 .claude/
 .gstack/
+
+# Brand kit archives (do not deploy)
+public/assets/Burnt*Rebrand*
