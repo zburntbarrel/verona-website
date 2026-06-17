@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import {
   EB_Garamond,
   Hedvig_Letters_Sans,
@@ -73,7 +74,29 @@ export default function RootLayout({
       lang="en"
       className={`${garamond.variable} ${hedvigSans.variable} ${hedvigSerif.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-linen text-sea">{children}</body>
+      <body className="min-h-full bg-linen text-sea">
+        {children}
+        <div id="google_translate_element" aria-hidden style={{ display: "none" }} />
+        <Script id="google-translate-init" strategy="afterInteractive">
+          {`
+            window.googleTranslateElementInit = function() {
+              new window.google.translate.TranslateElement(
+                {
+                  pageLanguage: 'en',
+                  includedLanguages: 'en,zh-CN,ko',
+                  autoDisplay: false,
+                  layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+                },
+                'google_translate_element'
+              );
+            };
+          `}
+        </Script>
+        <Script
+          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+          strategy="afterInteractive"
+        />
+      </body>
     </html>
   );
 }

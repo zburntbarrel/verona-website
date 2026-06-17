@@ -1,5 +1,32 @@
 @import "tailwindcss";
 
+/* Hide Google Translate banner/balloon UI — translation is driven by the
+   cookie set in LanguageSwitcher, not Google's chrome. */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover,
+#goog-gt-tt,
+.skiptranslate iframe {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+font[style*="background-color"] {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.language-option[data-active="true"] {
+  background: #192550;
+  color: #f8f7f3;
+}
+
 @theme {
   /* Verona brand palette */
   --color-sea: #192550;

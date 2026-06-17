@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { externalLinks, languages, navigation, type NavLink } from "@/lib/site";
-import { DropdownIcon, GlobeIcon, LogoGlyph, VeronaWordmark } from "./icons";
+import { externalLinks, navigation, type NavLink } from "@/lib/site";
+import { DropdownIcon, LogoGlyph, VeronaWordmark } from "./icons";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 function NavAnchor({ link, className }: { link: NavLink; className?: string }) {
   if (link.external) {
@@ -54,20 +55,7 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden shrink-0 items-center gap-3 lg:flex">
-          <div className="nav-hover-group group relative">
-            <button type="button" className="language-trigger" aria-label="Select language" aria-haspopup="menu">
-              <GlobeIcon className="size-5" aria-hidden />
-              EN
-              <DropdownIcon className="size-4 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" aria-hidden />
-            </button>
-            <div className="language-dropdown" role="menu">
-              {languages.map((language) => (
-                <button key={language} type="button" className="language-option">
-                  {language}
-                </button>
-              ))}
-            </div>
-          </div>
+          <LanguageSwitcher variant="desktop" />
           <Link href="/get-verona" className="accent-button">
             Get $VERONA
           </Link>
@@ -95,13 +83,7 @@ export default function Navbar() {
             )}
             <div className="mobile-nav-group">
               <p>Language</p>
-              <div className="grid grid-cols-3 gap-2">
-                {languages.map((language) => (
-                  <button key={language} type="button" className="language-option">
-                    {language.slice(0, 2).toUpperCase()}
-                  </button>
-                ))}
-              </div>
+              <LanguageSwitcher variant="mobile" />
             </div>
             <a href={externalLinks.ero} target="_blank" rel="noreferrer" className="secondary-action w-full justify-center">
               Try Ero
