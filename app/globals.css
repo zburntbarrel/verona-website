@@ -374,6 +374,44 @@ details > summary::-webkit-details-marker {
     background: rgb(229 220 203 / 0.46);
   }
 
+  .proof-card[data-floral] {
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+    overflow: hidden;
+    border-color: rgb(248 247 243 / 0.25);
+    color: var(--color-linen);
+  }
+
+  .proof-card[data-floral]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
+
+  .proof-card[data-floral="1"]::before {
+    background-image:
+      linear-gradient(rgb(25 37 80 / 0.35), rgb(25 37 80 / 0.5)),
+      url('/assets/floral-card-1.png');
+  }
+
+  .proof-card[data-floral="2"]::before {
+    background-image:
+      linear-gradient(rgb(25 37 80 / 0.35), rgb(25 37 80 / 0.5)),
+      url('/assets/floral-card-2.png');
+  }
+
+  .proof-card[data-floral="3"]::before {
+    background-image:
+      linear-gradient(rgb(25 37 80 / 0.35), rgb(25 37 80 / 0.5)),
+      url('/assets/floral-tropical-bird.jpg');
+  }
+
   .proof-card span,
   .proof-core span,
   .proof-fan span,
@@ -769,7 +807,6 @@ details > summary::-webkit-details-marker {
     text-align: right;
   }
 
-
   .signup-form {
     display: flex;
     flex-direction: column;
@@ -925,4 +962,196 @@ details > summary::-webkit-details-marker {
   .display-heading {
     font-size: 82px;
   }
+}
+
+/* Story page — horizontal scroll-snap magazine. Each frame is its own
+   viewport-sized cover, scrolled through left-to-right. Lives outside
+   @layer so Tailwind v4 cannot purge it during content sweeping. */
+.story-strip {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100svh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  background: #131e18;
+}
+
+.story-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.story-frame {
+  position: relative;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+}
+
+.story-frame-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.story-frame-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.story-frame-overlay-dark {
+  background:
+    radial-gradient(ellipse 60% 50% at center, rgba(19, 30, 24, 0.55) 0%, rgba(19, 30, 24, 0.22) 60%, rgba(19, 30, 24, 0) 100%),
+    linear-gradient(180deg, rgba(19, 30, 24, 0.5) 0%, rgba(19, 30, 24, 0.18) 22%, rgba(19, 30, 24, 0.18) 78%, rgba(19, 30, 24, 0.72) 100%);
+}
+
+.story-frame-overlay-light {
+  background:
+    radial-gradient(ellipse 60% 50% at center, rgba(248, 247, 243, 0.7) 0%, rgba(248, 247, 243, 0.35) 60%, rgba(248, 247, 243, 0) 100%),
+    linear-gradient(180deg, rgba(248, 247, 243, 0.55) 0%, rgba(248, 247, 243, 0.2) 22%, rgba(248, 247, 243, 0.2) 78%, rgba(248, 247, 243, 0.82) 100%);
+}
+
+.story-frame-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  padding: 32px;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .story-frame-content {
+    padding: 64px 80px;
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .story-frame-content {
+    padding: 80px 120px;
+  }
+}
+
+.story-frame-marks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.story-frame-body {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.story-frame-title {
+  font-family: var(--font-garamond), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(48px, 7.2vw, 116px);
+  line-height: 1.02;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+}
+
+.story-frame-title-accent {
+  font-style: italic;
+}
+
+.story-frame-quote {
+  margin-top: 28px;
+  max-width: 560px;
+  font-family: var(--font-hedvig-serif), Georgia, serif;
+  font-size: clamp(16px, 1.25vw, 20px);
+  line-height: 1.55;
+  opacity: 0.92;
+}
+
+.story-frame-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.story-frame-mark {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.story-frame-caption,
+.story-frame-chapter {
+  font-family: var(--font-hedvig-sans), Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+
+.story-frame-caption {
+  max-width: 60ch;
+  line-height: 1.5;
+}
+
+.story-frame-chapter {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.story-frame-index {
+  font-variant-numeric: tabular-nums;
+}
+
+/* When the magazine strip is mounted, hide the site footer (the strip is
+   the whole page) and make the navbar an overlaid, transparent chrome
+   instead of a solid linen bar that breaks immersion. Scope the footer
+   hide to direct body children so per-frame <footer>s survive. */
+body:has(.story-strip) > footer {
+  display: none;
+}
+
+body:has(.story-strip) > header,
+body:has(.story-strip) header:has(nav) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  background: transparent;
+  border-bottom: none;
+  backdrop-filter: none;
+  color: #f8f7f3;
+}
+
+body:has(.story-strip) header:has(nav) .nav-trigger,
+body:has(.story-strip) header:has(nav) a[aria-label="Verona home"],
+body:has(.story-strip) header:has(nav) .language-trigger {
+  color: #f8f7f3;
+}
+
+body:has(.story-strip) header:has(nav) .language-trigger {
+  border-color: rgba(248, 247, 243, 0.55);
+}
+
+body:has(.story-strip) header:has(nav) .accent-button {
+  color: #192550;
+}
+
+body:has(.story-strip) .story-strip {
+  height: 100svh;
+  padding-top: 0;
 }
