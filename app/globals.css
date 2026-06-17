@@ -252,7 +252,7 @@ details > summary::-webkit-details-marker {
     background-repeat: no-repeat;
     padding: 0 18px;
     font-size: 14px;
-    color: #f8f7f3;
+    color: #ffffff;
   }
 
   .accent-button {
@@ -993,9 +993,12 @@ details > summary::-webkit-details-marker {
   height: 100svh;
   overflow-x: auto;
   overflow-y: hidden;
-  /* proximity (not mandatory) so the browser doesn't fight the lerp
-     animation mid-sweep; it settles to a frame only after the user pauses. */
-  scroll-snap-type: x proximity;
+  /* No CSS scroll-snap. proximity was snapping every intermediate rAF
+     frame back to the nearest cover, killing smooth animation. Mandatory
+     would fight scrollBy({smooth}) similarly. The JS handler paginates by
+     full frame widths instead, so snap-like behavior is preserved without
+     the browser yanking mid-animation. */
+  scroll-snap-type: none;
   scrollbar-width: none;
   background: #131e18;
   scroll-behavior: auto;
@@ -1010,8 +1013,6 @@ details > summary::-webkit-details-marker {
   flex: 0 0 100vw;
   width: 100vw;
   height: 100%;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   overflow: hidden;
 }
 
@@ -1019,16 +1020,8 @@ details > summary::-webkit-details-marker {
   position: absolute;
   inset: 0;
   background-position: center;
-}
-
-.story-frame-image[data-mode="cover"] {
   background-size: cover;
   background-repeat: no-repeat;
-}
-
-.story-frame-image[data-mode="tile"] {
-  background-size: 420px auto;
-  background-repeat: repeat;
 }
 
 .story-frame-overlay {
@@ -1036,65 +1029,88 @@ details > summary::-webkit-details-marker {
   inset: 0;
 }
 
+/* Minimal tint behind the card so the underlying photo doesn't fight the
+   navbar/footer brand marks at the very top and bottom of the viewport. */
 .story-frame-overlay-dark {
   background:
-    radial-gradient(ellipse 60% 50% at center, rgba(19, 30, 24, 0.55) 0%, rgba(19, 30, 24, 0.22) 60%, rgba(19, 30, 24, 0) 100%),
-    linear-gradient(180deg, rgba(19, 30, 24, 0.5) 0%, rgba(19, 30, 24, 0.18) 22%, rgba(19, 30, 24, 0.18) 78%, rgba(19, 30, 24, 0.72) 100%);
+    linear-gradient(180deg, rgba(19, 30, 24, 0.28) 0%, rgba(19, 30, 24, 0) 14%, rgba(19, 30, 24, 0) 86%, rgba(19, 30, 24, 0.32) 100%);
 }
 
 .story-frame-overlay-light {
   background:
-    radial-gradient(ellipse 60% 50% at center, rgba(248, 247, 243, 0.7) 0%, rgba(248, 247, 243, 0.35) 60%, rgba(248, 247, 243, 0) 100%),
-    linear-gradient(180deg, rgba(248, 247, 243, 0.55) 0%, rgba(248, 247, 243, 0.2) 22%, rgba(248, 247, 243, 0.2) 78%, rgba(248, 247, 243, 0.82) 100%);
+    linear-gradient(180deg, rgba(248, 247, 243, 0.4) 0%, rgba(248, 247, 243, 0) 14%, rgba(248, 247, 243, 0) 86%, rgba(248, 247, 243, 0.42) 100%);
 }
 
+/* The frame is now a stage — imagery fills it, and a centered linen card
+   holds the text. Matches the Get $VERONA section on /get-verona. */
 .story-frame-content {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  place-items: center;
   height: 100%;
-  padding: 32px;
-  gap: 24px;
+  padding: 80px 24px;
 }
 
 @media (min-width: 768px) {
   .story-frame-content {
-    padding: 64px 80px;
-    gap: 32px;
+    padding: 96px 64px;
   }
 }
 
 @media (min-width: 1280px) {
   .story-frame-content {
-    padding: 80px 120px;
+    padding: 112px 96px;
   }
 }
 
-.story-frame-marks {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.story-frame-body {
-  align-self: center;
+.story-frame-card {
+  position: relative;
+  width: min(720px, 100%);
+  max-height: 100%;
+  background: #f8f7f3;
+  color: #192550;
+  padding: 48px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 880px;
-  margin: 0 auto;
+  gap: 28px;
+  box-shadow: 0 30px 80px -20px rgba(19, 30, 24, 0.35);
+}
+
+@media (min-width: 768px) {
+  .story-frame-card {
+    padding: 72px 64px;
+    width: min(760px, 100%);
+  }
+}
+
+.story-frame-card-mark {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  color: #192550;
+  opacity: 0.85;
+}
+
+.story-frame-card-chapter {
+  font-family: var(--font-hedvig-sans), Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #b56135;
 }
 
 .story-frame-title {
   font-family: var(--font-garamond), Georgia, serif;
   font-weight: 400;
-  font-size: clamp(48px, 7.2vw, 116px);
-  line-height: 1.02;
+  font-size: clamp(44px, 5.6vw, 88px);
+  line-height: 1;
   letter-spacing: -0.005em;
   text-wrap: balance;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+  color: #192550;
+  margin: 0;
 }
 
 .story-frame-title-accent {
@@ -1102,48 +1118,45 @@ details > summary::-webkit-details-marker {
 }
 
 .story-frame-quote {
-  margin-top: 28px;
-  max-width: 560px;
+  max-width: 460px;
   font-family: var(--font-hedvig-serif), Georgia, serif;
-  font-size: clamp(16px, 1.25vw, 20px);
-  line-height: 1.55;
-  opacity: 0.92;
+  font-size: clamp(15px, 1.05vw, 18px);
+  line-height: 1.6;
+  color: #192550;
+  opacity: 0.8;
+  margin: 0;
 }
 
-.story-frame-footer {
+.story-frame-card-footer {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 18px;
+  width: 100%;
+  margin-top: 8px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(25, 37, 80, 0.12);
 }
 
-.story-frame-mark {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.story-frame-caption,
-.story-frame-chapter {
+.story-frame-card-caption,
+.story-frame-card-index {
   font-family: var(--font-hedvig-sans), Arial, sans-serif;
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  opacity: 0.82;
+  color: #192550;
+  opacity: 0.7;
 }
 
-.story-frame-caption {
-  max-width: 60ch;
+.story-frame-card-caption {
+  text-align: left;
+  max-width: 36ch;
   line-height: 1.5;
 }
 
-.story-frame-chapter {
-  text-align: right;
-  white-space: nowrap;
-}
-
-.story-frame-index {
+.story-frame-card-index {
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 /* When the magazine strip is mounted, hide the site footer (the strip is
