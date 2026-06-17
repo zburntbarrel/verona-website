@@ -1527,17 +1527,13 @@ body:has(.story-strip) .story-strip {
   display: flex;
   flex-direction: column;
   gap: 22px;
-  --logo-row-height: 96px;
+  --logo-row-height: 68px;
   padding: 8px 0;
-  -webkit-mask-image:
-    linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
-  mask-image:
-    linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
 }
 
 @media (min-width: 768px) {
   .brand-marquee {
-    --logo-row-height: 120px;
+    --logo-row-height: 84px;
     gap: 28px;
   }
 }
