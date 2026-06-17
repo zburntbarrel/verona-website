@@ -25,13 +25,13 @@ export default function VideoFounder() {
       // view. No pin — no extra scroll consumed.
       gsap.fromTo(
         video.current,
-        { scale: 0.85 },
+        { scale: 0.45 },
         {
           scale: 1,
           ease: "none",
           scrollTrigger: {
             trigger: root.current,
-            start: "top bottom",
+            start: "top bottom+=1200",
             end: "top center",
             scrub: true,
           },
