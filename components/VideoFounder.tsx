@@ -50,7 +50,14 @@ export default function VideoFounder() {
   return (
     <section
       ref={root}
-      className="relative flex h-screen items-center justify-center overflow-hidden bg-linen"
+      className="relative flex h-screen items-center justify-center overflow-hidden"
+      style={{
+        backgroundColor: "#e5dccb",
+        backgroundImage: "url('/assets/get-verona-floral.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
       {/* Video placeholder — base size is full viewport width; it's scaled down
           at the start and grows to scale(1) === 100vw on scroll. */}
