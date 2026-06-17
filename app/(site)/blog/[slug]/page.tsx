@@ -92,28 +92,42 @@ export default async function BlogPostPage({
 
   return (
     <main>
-      {/* Header */}
-      <section className="site-band bg-linen text-sea pb-0">
-        <div className="site-container max-w-[860px]">
-          <Link href="/blog" className="eyebrow text-rosso blog-back">
-            ← Blog
-          </Link>
-          <p className="eyebrow mt-6">{post.category}</p>
-          <h1 className="display-heading mt-3 text-[44px] md:text-[68px]">
-            {post.title}
-          </h1>
-          <div className="article-card-meta mt-6">
-            <span>{post.author}</span>
-            <span aria-hidden>·</span>
-            <time dateTime={post.date}>{formatPostDate(post.date)}</time>
-            <span aria-hidden>·</span>
-            <span>{post.readingMinutes} min read</span>
+      {/* Header — full-bleed parallax floral (the post's own cover image,
+          same one shown on the index card) with a linen panel holding the
+          title block. Same recipe as the close CTA below the body. */}
+      <section
+        className="relative overflow-hidden text-sea"
+        style={{
+          backgroundColor: "#e5dccb",
+          backgroundImage: `url("${post.image}")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        <div className="site-container relative py-32 md:py-44 lg:py-52">
+          <div className="relative mx-auto max-w-[760px] bg-linen p-10 md:p-16">
+            <Link href="/blog" className="eyebrow text-rosso blog-back">
+              ← Blog
+            </Link>
+            <p className="eyebrow mt-6">{post.category}</p>
+            <h1 className="display-heading mt-3">
+              {post.title}
+            </h1>
+            <div className="article-card-meta mt-6">
+              <span>{post.author}</span>
+              <span aria-hidden>·</span>
+              <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+              <span aria-hidden>·</span>
+              <span>{post.readingMinutes} min read</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Body with sticky table of contents */}
-      <section className="site-band bg-linen text-sea pt-12">
+      <section className="site-band bg-linen text-sea">
         <div className="site-container blog-article">
           {headings.length > 1 && (
             <aside className="blog-toc" aria-label="On this page">
@@ -181,7 +195,7 @@ export default async function BlogPostPage({
         className="relative overflow-hidden text-sea"
         style={{
           backgroundColor: "#e5dccb",
-          backgroundImage: "url('/assets/blog-floral-company.jpg')",
+          backgroundImage: `url("${post.image}")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -191,7 +205,7 @@ export default async function BlogPostPage({
         <div className="site-container relative py-40 md:py-56 lg:py-64">
           <div className="relative mx-auto max-w-[640px] bg-linen p-10 md:p-16">
             <LogoGlyph className="absolute right-8 top-8 h-7 w-auto text-sea md:right-10 md:top-10" />
-            <h2 className="display-heading text-[40px] md:text-[56px]">
+            <h2 className="display-heading">
               Get the next update <em>first</em>.
             </h2>
             <p className="body-copy mt-6 max-w-[460px]">

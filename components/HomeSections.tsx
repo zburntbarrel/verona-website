@@ -2,6 +2,8 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { externalLinks } from "@/lib/site";
 import VerifiedFactsOrbit from "@/components/VerifiedFactsOrbit";
+import { ArticleCard } from "@/components/PageSections";
+import { getAllPosts } from "@/lib/blog";
 
 const proofSources = [
   ["Websites", "Prove what a site shows about you, without handing over the login."],
@@ -43,12 +45,6 @@ const audiences = [
     href: externalLinks.docs,
     external: true,
   },
-];
-
-const blogPosts = [
-  "Reality in the age of AI",
-  "Verona's guide to verified products",
-  "Building out in the open",
 ];
 
 function CtaLink({
@@ -237,6 +233,8 @@ export function BrandProof() {
 }
 
 export function BlogPreview() {
+  const latest = getAllPosts().slice(0, 3);
+
   return (
     <section className="site-band bg-linen text-sea">
       <div className="site-container">
@@ -246,11 +244,8 @@ export function BlogPreview() {
           <p className="body-copy">Blogs, announcements, launches, and notes from the team building the intelligence layer.</p>
         </div>
         <div className="mt-12 grid gap-4 md:grid-cols-3">
-          {blogPosts.map((title) => (
-            <Link key={title} href="/blog" className="article-card">
-              <span>July 2026</span>
-              <h3>{title}</h3>
-            </Link>
+          {latest.map((post) => (
+            <ArticleCard key={post.slug} post={post} />
           ))}
         </div>
         <div className="mt-8">

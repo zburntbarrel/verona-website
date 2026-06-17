@@ -60,25 +60,17 @@ export function RouteTile({
   );
 }
 
-// Article preview card for the blog index and related lists. Reuses the
-// `.article-card` pattern; editorial/typographic (floral budget is spent on the
-// featured + CTA bands, per the toolkit).
-// Floral assigned per category so imagery runs through the whole grid while
-// staying organized (the toolkit's image-backed card + navy-overlay technique).
-const FLORAL_BY_CATEGORY: Record<string, string> = {
-  Product: "product",
-  Partnerships: "partnerships",
-  Custody: "custody",
-  Exchanges: "exchanges",
-  Company: "company",
-};
-
+// Article preview card for the blog index and related lists. Each post carries
+// its own floral cover image (lib/blog.ts), so the grid reads as 20 distinct
+// covers rather than 5 category-shared ones. The same image is reused as the
+// post hero background in app/(site)/blog/[slug]/page.tsx — the index card is
+// a literal preview of the post.
 export function ArticleCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
       className="blog-card"
-      data-floral={FLORAL_BY_CATEGORY[post.category] ?? "product"}
+      style={{ backgroundImage: `url("${post.image}")` }}
     >
       <span className="blog-card-scrim" aria-hidden />
       <div className="blog-card-body">

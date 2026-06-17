@@ -31,6 +31,9 @@ export type BlogPost = {
   author: string;
   readingMinutes: number;
   featured?: boolean;
+  // Cover image used both as the index-card background and the post hero
+  // background. Public-domain Dutch/rococo floral, ~1400px wide. One per post.
+  image: string;
   body: BlogBlock[];
 };
 
@@ -45,6 +48,7 @@ export const blogCategories: BlogCategory[] = [
 const posts: BlogPost[] = [
   {
     slug: "verona-now-integrates-payments-credentials-and-tamper-proof-records-to-enterprise-grade-applications-through-a-unified-api",
+    image: "/assets/blog-cover-01.jpg",
     title:
       "Verona Now Integrates Payments, Credentials, and Tamper-Proof Records Into Enterprise-Grade Applications Through a Unified API",
     dek: "The use cases always made sense. What never made sense was the integration cost. Verona changes that with a unified API built on OAuth2 — the same protocol your team already uses.",
@@ -84,6 +88,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "veronas-protocol-level-zk-verification-and-on-chain-email-authentication-a-technical-deep-dive",
+    image: "/assets/blog-cover-02.jpg",
     title:
       "Verona's Protocol-Level ZK Verification and On-Chain Email Authentication: A Technical Deep Dive",
     dek: "Verona's ZK Module and DKIM Module are live on testnet: protocol-level proof verification using GNARK and on-chain email authentication keys with permanent historical records. No DNS dependencies, no smart-contract overhead.",
@@ -115,6 +120,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-launches-first-on-chain-zero-knowledge-email-verification",
+    image: "/assets/blog-cover-03.jpg",
     title:
       "Prove Anything in Your Email: Verona Launches First On-Chain ZK Email Verification",
     dek: "Verona launches the first on-chain email verification infrastructure, enabling zero-knowledge proofs from your inbox without exposing the email itself.",
@@ -141,6 +147,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-founder-anthony-anzalone-named-to-forbes-30-under-30-finance-list",
+    image: "/assets/blog-cover-04.jpg",
     title:
       "Verona Founder Anthony Anzalone Named to Forbes 30 Under 30 Finance List",
     dek: "Four years after burning a Banksy and sparking a global debate about digital ownership, Verona founder Anthony Anzalone has been named to the Forbes 30 Under 30 Finance list.",
@@ -172,6 +179,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-bybit-bga-launch-global-impact-accelerator",
+    image: "/assets/blog-cover-05.jpg",
     title:
       "Verona's Global Impact Accelerator Goes Live With the Blockchain for Good Alliance",
     dek: "Verona and the Blockchain for Good Alliance are launching the Global Impact Accelerator to support builders solving real-world challenges aligned with the UN Sustainable Development Goals.",
@@ -198,6 +206,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-launches-app-verifications-becoming-the-first-to-bring-web2-mobile-app-data-on-chain",
+    image: "/assets/blog-cover-06.jpg",
     title:
       "Verona Launches App Verifications, Becoming the First to Bring Web2 Mobile App Data On-Chain",
     dek: "App Verifications brings real-world data from hundreds of millions of smartphone users onto Verona through app attestations — letting anyone verify what happens inside a Web2 app using first-party data.",
@@ -224,6 +233,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-partners-with-wrth-and-aws",
+    image: "/assets/blog-cover-07.jpg",
     title:
       "Verona Partners With WRTH and AWS to Solve E-Commerce's $467 Billion Counterfeit Problem",
     dek: "Counterfeits drain $467B from global commerce and keep rising with online shopping. Verona, WRTH, and AWS are embedding verification into e-commerce transactions, turning authenticity into a built-in feature.",
@@ -250,6 +260,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-joins-bybit-in-the-blockchain-for-good-alliance",
+    image: "/assets/blog-cover-08.jpg",
     title: "Verona Joins Bybit in the Blockchain for Good Alliance",
     dek: "Trust in institutions is eroding while the world leans harder on opaque digital systems. Verona is joining the Blockchain for Good Alliance to help replace assumption with proof.",
     date: "2025-10-29",
@@ -270,6 +281,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-evolves-why-verify-anything-is-so-vital",
+    image: "/assets/blog-cover-09.jpg",
     title: "Verona Evolves: Why 'Verify Anything' Is So Vital",
     dek: "Trust has eroded across the internet. Claims, clicks, and credentials are no longer taken at face value, and the cost of that doubt is rising everywhere. Verona is evolving to close the gap.",
     date: "2025-10-23",
@@ -295,6 +307,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-fireblocks-integration-opens-doors-to-institutional-adoption",
+    image: "/assets/blog-cover-10.jpg",
     title:
       "Fireblocks Integrates Native Verona Support, Opening Doors to 2,400+ Institutions",
     dek: "Verona has joined forces with Fireblocks to accelerate institutional adoption, building a secure bridge between 2,400+ institutions and the Verona ecosystem.",
@@ -321,6 +334,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "kraken-lists-verona-expanding-access-across-north-america",
+    image: "/assets/blog-cover-11.jpg",
     title: "Kraken Lists Verona, Expanding Access Across North America",
     dek: "Verona is now listed on Kraken. Here's what the listing unlocks, and why it matters for access across North America.",
     date: "2025-09-12",
@@ -346,6 +360,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-integrates-apple-id-onboards-billions-onchain",
+    image: "/assets/blog-cover-12.jpg",
     title:
       "Verona Brings Apple's 3 Billion Devices On-Chain: Mass Adoption Just Got Real",
     dek: "Verona is the first blockchain to support Apple ID login at the protocol level, unlocking one-click access to Web3 for over 3 billion Apple users.",
@@ -372,6 +387,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "bybit-eu-taps-verona-for-inaugural-launchpool-in-the-eu",
+    image: "/assets/blog-cover-13.jpg",
     title: "Bybit EU Taps Verona for Inaugural Launchpool in the EU",
     dek: "Bybit EU has chosen Verona for its first-ever EU Launchpool, opening regulated access to $VERONA for 450M+ users.",
     date: "2025-08-14",
@@ -397,6 +413,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "ledger-integrates-verona-expanding-reach-to-6-million-new-users",
+    image: "/assets/blog-cover-14.jpg",
     title:
       "Ledger Integrates Verona Natively, Unlocking Secure Web3 Access for 6 Million+ Users",
     dek: "Ledger's global base of 6M+ users can now secure and stake native $VERONA via the Ledger Live app — the world's leading self-custody solution meets a consumer-first blockchain.",
@@ -423,6 +440,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-launches-dave-the-premier-blockchain-mobile-development-kit",
+    image: "/assets/blog-cover-15.jpg",
     title:
       "Verona Launches Dave, the Premier Blockchain Mobile Development Kit",
     dek: "The Mobile Development Kit 'Dave' breaks crypto's adoption barrier through native mobile apps that make blockchain invisible — enabling 18M mobile developers to meet billions of users where they are.",
@@ -449,6 +467,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-available-anchorage-digital-expanding-institutional-access",
+    image: "/assets/blog-cover-16.jpg",
     title:
       "Verona Now Available Through Anchorage Digital, Expanding Institutional Access",
     dek: "Institutions can now access Verona from the security of Anchorage Digital's platform — a qualified custodian and home to the only federally chartered digital-asset bank.",
@@ -475,6 +494,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-becomes-first-title-ii-mica-eu-compliant-l1-blockchain",
+    image: "/assets/blog-cover-17.jpg",
     title:
       "Verona Becomes First Title II MiCA EU-Compliant L1 Blockchain",
     dek: "Verona is compliant with Title II EU regulations, becoming the first L1 on mainnet to release a Markets in Crypto-Assets (MiCA) whitepaper.",
@@ -501,6 +521,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-onboards-global-brands-uber-amazon-bmw-temu",
+    image: "/assets/blog-cover-18.jpg",
     title:
       "Verona Opens Doors for Brand Engagement With Uber, Amazon Prime, BMW, The North Face, and Temu",
     dek: "Following its open mainnet launch, Verona is now used by household brands across fashion, gaming, e-commerce, automotive, and food to run reward-driven campaigns — driving acquisition costs down by over 79%.",
@@ -527,6 +548,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "uber-launches-on-verona-mainnet-case-study",
+    image: "/assets/blog-cover-19.jpg",
     title: "Uber Utilizes Verona for Customer Acquisition on a Global Scale",
     dek: "The Verona-powered app EarnOS has launched on mainnet, with Uber among the global brands using it to connect with and acquire users through verifiable engagement.",
     date: "2025-02-10",
@@ -552,6 +574,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "verona-and-eigenlayer-integrate-bringing-actively-validated-services-avs-to-novel-consumer-application-builders",
+    image: "/assets/blog-cover-20.jpg",
     title:
       "Verona and EigenLayer Integrate to Enable AVS Access for Consumer-Ready Application Builders",
     dek: "The integration lets Verona's developer pool tap EigenLayer's Actively Validated Services and ZK tooling — including zkTLS, provers, and coprocessors — backed by over $14.93B in security.",

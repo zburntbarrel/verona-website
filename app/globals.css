@@ -1686,21 +1686,9 @@ body:has(.story-strip) .story-strip {
     margin-top: 14px;
   }
 
-  .blog-card[data-floral="product"] {
-    background-image: url("/assets/blog-floral-product.jpg");
-  }
-  .blog-card[data-floral="partnerships"] {
-    background-image: url("/assets/blog-floral-partnerships.jpg");
-  }
-  .blog-card[data-floral="custody"] {
-    background-image: url("/assets/blog-floral-custody.jpg");
-  }
-  .blog-card[data-floral="exchanges"] {
-    background-image: url("/assets/blog-floral-exchanges.jpg");
-  }
-  .blog-card[data-floral="company"] {
-    background-image: url("/assets/blog-floral-company.jpg");
-  }
+  /* Cover image is set inline via `style={{ backgroundImage }}` on each card,
+     using the per-post `image` field from lib/blog.ts. The class only owns
+     layout, the scrim, and the navy fallback background-color. */
 }
 
 /* Brand text marquee — type-only rows that scroll inside the linen card.

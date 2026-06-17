@@ -23,7 +23,7 @@ export default function BlogPage() {
       <section className="site-band bg-linen text-sea">
         <div className="site-container max-w-[980px]">
           <p className="eyebrow">Blog</p>
-          <h1 className="display-heading text-[56px] md:text-[88px]">
+          <h1 className="display-heading">
             Follow the <em>latest</em>.
           </h1>
           <p className="body-copy mt-6 max-w-[440px]">
@@ -38,7 +38,7 @@ export default function BlogPage() {
         className="relative overflow-hidden text-sea"
         style={{
           backgroundColor: "#e5dccb",
-          backgroundImage: "url('/assets/blog-floral-product.jpg')",
+          backgroundImage: `url("${featured.image}")`,
           backgroundSize: "cover",
           backgroundPosition: "center 18%",
           backgroundRepeat: "no-repeat",
@@ -52,7 +52,7 @@ export default function BlogPage() {
           >
             <LogoGlyph className="absolute right-8 top-8 h-7 w-auto text-sea md:right-10 md:top-10" />
             <p className="eyebrow text-rosso">Featured · {featured.category}</p>
-            <h2 className="display-heading mt-4 text-[40px] md:text-[60px]">
+            <h2 className="display-heading mt-4 text-[28px] md:text-[36px]">
               {featured.title}
             </h2>
             <p className="body-copy mt-6 max-w-[560px]">{featured.dek}</p>
@@ -87,7 +87,7 @@ export default function BlogPage() {
         <div className="site-container relative py-40 md:py-56 lg:py-64">
           <div className="relative mx-auto max-w-[760px] bg-linen p-10 md:p-16">
             <LogoGlyph className="absolute right-8 top-8 h-7 w-auto text-sea md:right-10 md:top-10" />
-            <h2 className="display-heading text-[40px] md:text-[60px]">
+            <h2 className="display-heading">
               Get the next update <em>first</em>.
             </h2>
             <p className="body-copy mt-6 max-w-[460px]">
