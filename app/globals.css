@@ -758,7 +758,7 @@ details > summary::-webkit-details-marker {
     inset: 0;
     z-index: -1;
     background-image:
-      linear-gradient(rgb(248 247 243 / 0.20), rgb(248 247 243 / 0.20)),
+      linear-gradient(rgb(25 37 80 / 0.42), rgb(25 37 80 / 0.42)),
       url('/assets/floral-hero-cta.png');
     background-size: cover;
     background-position: center;
@@ -771,7 +771,8 @@ details > summary::-webkit-details-marker {
   .secondary-action.floral-cta:hover,
   .secondary-action.floral-cta:focus-visible {
     background-color: transparent;
-    color: #192550;
+    color: #ffffff;
+    border-color: rgb(248 247 243 / 0.7);
   }
 
   .secondary-action.floral-cta:hover::before,
