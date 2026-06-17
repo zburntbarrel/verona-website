@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { LogoGlyph, VeronaWordmark } from "@/components/icons";
+import { LogoGlyph } from "@/components/icons";
 
 type FrameTone = "dark" | "light";
 
@@ -121,7 +121,7 @@ const FRAMES: StoryFrame[] = [
   },
 ];
 
-function Frame({ frame, index, total }: { frame: StoryFrame; index: number; total: number }) {
+function Frame({ frame }: { frame: StoryFrame }) {
   return (
     <article
       id={frame.id}
@@ -144,7 +144,6 @@ function Frame({ frame, index, total }: { frame: StoryFrame; index: number; tota
       <div className="story-frame-content">
         <div className="story-frame-card">
           <LogoGlyph className="story-frame-card-mark h-[26px] w-auto" />
-          <p className="story-frame-card-chapter">{frame.chapter}</p>
           <h2 className="story-frame-title">
             {frame.title}
             {frame.titleAccent ? (
@@ -160,11 +159,7 @@ function Frame({ frame, index, total }: { frame: StoryFrame; index: number; tota
             <p className="story-frame-quote">{frame.pullQuote}</p>
           ) : null}
           <footer className="story-frame-card-footer">
-            <VeronaWordmark className="story-frame-card-mark-bottom h-[16px] w-auto" />
             <p className="story-frame-card-caption">{frame.caption}</p>
-            <p className="story-frame-card-index">
-              {String(index + 1).padStart(2, "0")}/{String(total).padStart(2, "0")}
-            </p>
           </footer>
         </div>
       </div>
@@ -264,8 +259,8 @@ export default function StoryStrip() {
         Scroll right to read each chapter of the Verona story. Use arrow keys
         to page between frames.
       </p>
-      {FRAMES.map((frame, index) => (
-        <Frame key={frame.id} frame={frame} index={index} total={FRAMES.length} />
+      {FRAMES.map((frame) => (
+        <Frame key={frame.id} frame={frame} />
       ))}
     </main>
   );
