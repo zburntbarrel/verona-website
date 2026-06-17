@@ -1,4 +1,6 @@
 import Link from "next/link";
+import type { BlogPost } from "@/lib/blog";
+import { formatPostDate } from "@/lib/blog";
 
 export function PageHero({
   eyebrow,
@@ -54,6 +56,40 @@ export function RouteTile({
     <Link href={href} className="route-tile">
       <span>{label}</span>
       <p>{body}</p>
+    </Link>
+  );
+}
+
+// Article preview card for the blog index and related lists. Reuses the
+// `.article-card` pattern; editorial/typographic (floral budget is spent on the
+// featured + CTA bands, per the toolkit).
+// Floral assigned per category so imagery runs through the whole grid while
+// staying organized (the toolkit's image-backed card + navy-overlay technique).
+const FLORAL_BY_CATEGORY: Record<string, string> = {
+  Product: "product",
+  Partnerships: "partnerships",
+  Custody: "custody",
+  Exchanges: "exchanges",
+  Company: "company",
+};
+
+export function ArticleCard({ post }: { post: BlogPost }) {
+  return (
+    <Link
+      href={`/blog/${post.slug}`}
+      className="blog-card"
+      data-floral={FLORAL_BY_CATEGORY[post.category] ?? "product"}
+    >
+      <span className="blog-card-scrim" aria-hidden />
+      <div className="blog-card-body">
+        <span className="blog-card-cat">{post.category}</span>
+        <h3>{post.title}</h3>
+        <div className="article-card-meta">
+          <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+          <span aria-hidden>·</span>
+          <span>{post.readingMinutes} min read</span>
+        </div>
+      </div>
     </Link>
   );
 }
