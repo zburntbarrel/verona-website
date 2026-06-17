@@ -260,7 +260,7 @@ details > summary::-webkit-details-marker {
   }
 
   .primary-action {
-    background-image: url('/assets/button-tapestry.jpg');
+    background-image: url('/assets/button-accent.jpg');
   }
 
   /* Hover swaps the in-body primary CTA (Read the Litepaper et al, class
