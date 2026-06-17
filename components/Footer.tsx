@@ -28,7 +28,16 @@ function FooterLink({
 
 export default function Footer() {
   return (
-    <footer className="border-t border-sea/15 bg-forest px-6 py-14 text-linen md:px-12 lg:px-[60px]">
+    <footer
+      className="border-t border-sea/15 bg-sea px-6 py-14 text-linen md:px-12 lg:px-[60px]"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(25,37,80,0.72), rgba(25,37,80,0.72)), url('/assets/button-accent.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="mx-auto grid w-full gap-12 lg:grid-cols-[minmax(220px,0.9fr)_minmax(0,2.1fr)]">
         <div className="flex flex-col gap-5">
           <Link href="/" className="flex w-fit items-center gap-3" aria-label="Verona home">
