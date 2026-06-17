@@ -28,7 +28,7 @@ export default function VideoFounder() {
         { scale: 0.05 },
         {
           scale: 1,
-          ease: "power3.out",
+          ease: "power3.in",
           scrollTrigger: {
             trigger: root.current,
             start: "top bottom+=1200",

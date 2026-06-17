@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import Link from "next/link";
 import { externalLinks } from "@/lib/site";
 import VerifiedFactsOrbit from "@/components/VerifiedFactsOrbit";
@@ -172,12 +171,33 @@ export function EroProof() {
 }
 
 export function BrandProof() {
-  // Each row scrolls in alternating directions at slightly different cadences,
-  // so the wall feels like motion rather than a single conveyor belt.
-  const rows = [
-    { src: "/assets/brand-logos-row-1.png", duration: "60s", reverse: false },
-    { src: "/assets/brand-logos-row-2.png", duration: "72s", reverse: true },
-    { src: "/assets/brand-logos-row-3.png", duration: "84s", reverse: false },
+  const brands = [
+    "Lego",
+    "Adidas",
+    "EA Sports",
+    "Bolt",
+    "Call of Duty",
+    "Coinbase",
+    "L'Oréal",
+    "IBM",
+    "Minecraft",
+    "New Balance",
+    "Mont Blanc",
+    "Selfridges",
+    "Marriott",
+    "DoorDash",
+    "Kraken",
+    "Aperol",
+    "Barbie",
+    "Apple Music",
+    "Gold's Gym",
+    "BMW",
+    "Temu",
+    "Monopoly",
+    "Gap",
+    "Paramount",
+    "Logitech",
+    "Tinder",
   ];
 
   return (
@@ -189,42 +209,11 @@ export function BrandProof() {
             Verona, leveraged by brands you already use.
           </h2>
         </div>
-      </div>
-      <div
-        className="brand-marquee mt-12"
-        aria-label="Brand examples"
-        role="list"
-      >
-        {rows.map((row, i) => (
-          <div
-            key={i}
-            className="brand-marquee-row"
-            data-reverse={row.reverse ? "true" : undefined}
-            style={
-              { "--marquee-duration": row.duration } as CSSProperties
-            }
-          >
-            {/* Doubled strip = one full duplicate so the loop point is
-                seamless. The animation moves the inner -50% then jumps back. */}
-            <div className="brand-marquee-strip">
-              <img
-                src={row.src}
-                alt=""
-                role="presentation"
-                className="brand-marquee-img"
-                draggable={false}
-              />
-              <img
-                src={row.src}
-                alt=""
-                role="presentation"
-                className="brand-marquee-img"
-                draggable={false}
-                aria-hidden="true"
-              />
-            </div>
-          </div>
-        ))}
+        <div className="logo-wall" aria-label="Brand examples">
+          {brands.map((brand) => (
+            <span key={brand}>{brand}</span>
+          ))}
+        </div>
       </div>
     </section>
   );
