@@ -1620,3 +1620,67 @@ body:has(.story-strip) .story-strip {
     background-image: url("/assets/blog-floral-company.jpg");
   }
 }
+
+/* Brand text marquee — type-only rows that scroll inside the linen card.
+   Each row is a duplicated <ul> so the loop seam is invisible. */
+.brand-text-marquee {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow: hidden;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+
+.brand-text-row {
+  width: 100%;
+  overflow: hidden;
+}
+
+.brand-text-strip {
+  display: flex;
+  width: max-content;
+  animation: brand-marquee-scroll var(--marquee-duration, 60s) linear infinite;
+  will-change: transform;
+}
+
+.brand-text-row[data-reverse="true"] .brand-text-strip {
+  animation-direction: reverse;
+}
+
+.brand-text-strip ul {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 56px;
+  margin: 0;
+  padding: 0 28px;
+  list-style: none;
+}
+
+.brand-text-strip li {
+  font-family: var(--font-hedvig-sans), Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #192550;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .brand-text-strip ul {
+    gap: 80px;
+  }
+  .brand-text-strip li {
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-text-strip {
+    animation: none;
+  }
+}

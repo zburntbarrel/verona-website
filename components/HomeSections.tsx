@@ -1,6 +1,8 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { externalLinks } from "@/lib/site";
 import VerifiedFactsOrbit from "@/components/VerifiedFactsOrbit";
+import { LogoGlyph } from "@/components/icons";
 
 const proofSources = [
   ["Websites", "Prove what a site shows about you, without handing over the login."],
@@ -171,7 +173,12 @@ export function EroProof() {
 }
 
 export function BrandProof() {
-  const brands = [
+  // Same composition as Govern with $VERONA on /get-verona — card on a
+  // full-bleed floral background — but rotated to horizontal: the card
+  // spans the full container width so the imagery shows above and below
+  // it instead of flanking left/right. Two text rows of brand names
+  // scroll in opposite directions inside the card.
+  const brandsRow1 = [
     "Lego",
     "Adidas",
     "EA Sports",
@@ -185,6 +192,8 @@ export function BrandProof() {
     "Mont Blanc",
     "Selfridges",
     "Marriott",
+  ];
+  const brandsRow2 = [
     "DoorDash",
     "Kraken",
     "Aperol",
@@ -200,19 +209,60 @@ export function BrandProof() {
     "Tinder",
   ];
 
+  const Row = ({
+    brands,
+    duration,
+    reverse,
+  }: {
+    brands: string[];
+    duration: string;
+    reverse?: boolean;
+  }) => (
+    <div
+      className="brand-text-row"
+      data-reverse={reverse ? "true" : undefined}
+      style={{ "--marquee-duration": duration } as CSSProperties}
+    >
+      <div className="brand-text-strip">
+        {[0, 1].map((copy) => (
+          <ul key={copy} aria-hidden={copy === 1}>
+            {brands.map((brand) => (
+              <li key={`${copy}-${brand}`}>{brand}</li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
-    <section className="site-band bg-seashell text-sea">
-      <div className="site-container">
-        <div className="section-copy max-w-[620px]">
-          <p className="eyebrow">Brands</p>
-          <h2 className="display-heading">
-            Verona, leveraged by brands you already use.
-          </h2>
-        </div>
-        <div className="logo-wall" aria-label="Brand examples">
-          {brands.map((brand) => (
-            <span key={brand}>{brand}</span>
-          ))}
+    <section
+      className="relative overflow-hidden text-sea"
+      style={{
+        backgroundColor: "#e5dccb",
+        backgroundImage: "url('/assets/floral-roses-bird.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <div className="relative py-24 md:py-32 lg:py-40">
+        <div className="relative w-full bg-linen px-6 py-12 md:px-12 md:py-16 lg:px-20 lg:py-20">
+          <LogoGlyph className="absolute right-6 top-6 h-7 w-auto text-sea md:right-10 md:top-10" />
+          <div className="section-copy mx-auto max-w-[760px] text-center">
+            <p className="eyebrow">Brands</p>
+            <h2 className="display-heading text-[44px] md:text-[60px]">
+              Verona, leveraged by brands you <em>already use</em>.
+            </h2>
+          </div>
+          <div
+            className="brand-text-marquee mt-10 md:mt-14"
+            aria-label="Brand examples"
+            role="list"
+          >
+            <Row brands={brandsRow1} duration="60s" />
+            <Row brands={brandsRow2} duration="74s" reverse />
+          </div>
         </div>
       </div>
     </section>
