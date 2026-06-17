@@ -245,18 +245,27 @@ details > summary::-webkit-details-marker {
 
   .accent-button,
   .primary-action {
-    border: 1px solid #4cb1df;
-    background: #4cb1df;
+    border: 1px solid rgb(25 37 80 / 0.55);
+    background-color: transparent;
+    background-image:
+      linear-gradient(rgb(248 247 243 / 0.55), rgb(248 247 243 / 0.55)),
+      url('/assets/button-tapestry.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 0 18px;
     font-size: 14px;
     color: #192550;
+    text-shadow: 0 1px 0 rgb(248 247 243 / 0.5);
   }
 
   .accent-button:hover,
   .primary-action:hover,
   .signup-form button:hover {
-    background: #bea64d;
-    border-color: #bea64d;
+    background-image:
+      linear-gradient(rgb(248 247 243 / 0.30), rgb(248 247 243 / 0.30)),
+      url('/assets/button-tapestry.jpg');
+    border-color: rgb(25 37 80 / 0.85);
   }
 
   .secondary-action {
