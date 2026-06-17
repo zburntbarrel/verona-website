@@ -263,18 +263,17 @@ details > summary::-webkit-details-marker {
     background-image: url('/assets/button-tapestry.jpg');
   }
 
-  .accent-button:hover {
-    background-image:
-      linear-gradient(rgb(76 177 223 / 0.20), rgb(76 177 223 / 0.20)),
-      url('/assets/button-accent.jpg');
-    border-color: rgb(76 177 223 / 0.85);
-  }
-
+  /* Hover swaps the button to the blue toile pattern. A subtle navy
+     overlay keeps the white CTA text readable on the lighter pattern. */
+  .accent-button:hover,
   .primary-action:hover,
   .signup-form button:hover {
     background-image:
-      linear-gradient(rgb(76 177 223 / 0.20), rgb(76 177 223 / 0.20)),
-      url('/assets/button-tapestry.jpg');
+      linear-gradient(rgb(25 37 80 / 0.42), rgb(25 37 80 / 0.42)),
+      url('/assets/button-hover-toile.jpg');
+    background-size: cover, 260px auto;
+    background-position: center, center;
+    background-repeat: no-repeat, repeat;
     border-color: rgb(76 177 223 / 0.85);
   }
 
@@ -894,10 +893,14 @@ details > summary::-webkit-details-marker {
   }
 
   .signup-form button {
-    border: 1px solid #4cb1df;
-    background: #4cb1df;
+    border: 1px solid rgb(25 37 80 / 0.55);
+    background-color: #192550;
+    background-image: url('/assets/button-accent.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 0 16px;
-    color: #192550;
+    color: #ffffff;
   }
 
   .footer-link {

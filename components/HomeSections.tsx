@@ -178,58 +178,28 @@ export function BrandProof() {
   // spans the full container width so the imagery shows above and below
   // it instead of flanking left/right. Two text rows of brand names
   // scroll in opposite directions inside the card.
-  const brandsRow1 = [
-    "Lego",
-    "Adidas",
-    "EA Sports",
-    "Bolt",
-    "Call of Duty",
-    "Coinbase",
-    "L'Oréal",
-    "IBM",
-    "Minecraft",
-    "New Balance",
-    "Mont Blanc",
-    "Selfridges",
-    "Marriott",
-  ];
-  const brandsRow2 = [
-    "DoorDash",
-    "Kraken",
-    "Aperol",
-    "Barbie",
-    "Apple Music",
-    "Gold's Gym",
-    "BMW",
-    "Temu",
-    "Monopoly",
-    "Gap",
-    "Paramount",
-    "Logitech",
-    "Tinder",
-  ];
-
-  const Row = ({
-    brands,
+  const ImageRow = ({
     duration,
     reverse,
   }: {
-    brands: string[];
     duration: string;
     reverse?: boolean;
   }) => (
     <div
-      className="brand-text-row"
+      className="brand-marquee-row"
       data-reverse={reverse ? "true" : undefined}
       style={{ "--marquee-duration": duration } as CSSProperties}
     >
-      <div className="brand-text-strip">
+      <div className="brand-marquee-strip">
         {[0, 1].map((copy) => (
-          <ul key={copy} aria-hidden={copy === 1}>
-            {brands.map((brand) => (
-              <li key={`${copy}-${brand}`}>{brand}</li>
-            ))}
-          </ul>
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={copy}
+            src="/assets/brand-row.png"
+            alt={copy === 0 ? "Brands using Verona" : ""}
+            aria-hidden={copy === 1}
+            className="brand-marquee-img"
+          />
         ))}
       </div>
     </div>
@@ -270,13 +240,9 @@ export function BrandProof() {
               Verona, leveraged by brands you <em>already use</em>.
             </h2>
           </div>
-          <div
-            className="brand-text-marquee mt-10 md:mt-14"
-            aria-label="Brand examples"
-            role="list"
-          >
-            <Row brands={brandsRow1} duration="60s" />
-            <Row brands={brandsRow2} duration="74s" reverse />
+          <div className="brand-marquee mt-10 md:mt-14" aria-label="Brands using Verona">
+            <ImageRow duration="80s" />
+            <ImageRow duration="100s" reverse />
           </div>
         </div>
       </div>
