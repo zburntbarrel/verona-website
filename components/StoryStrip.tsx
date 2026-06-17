@@ -196,16 +196,43 @@ export default function StoryStrip() {
     const el = stripRef.current;
     if (!el) return;
 
-    // Translate vertical mouse-wheel intent into horizontal scroll so the
-    // strip is reachable without a trackpad. Pointer / keyboard / touch all
-    // work natively and stay untouched.
+    // Translate vertical wheel intent into a smooth horizontal sweep.
+    // Approach: each wheel tick adds to a target scroll position;
+    // requestAnimationFrame lerps the real scrollLeft toward that target.
+    // The CSS uses `scroll-snap-type: x proximity` so the browser only
+    // settles to a frame when the user stops, never fighting mid-animation.
+    let targetX = el.scrollLeft;
+    let rafId: number | null = null;
+
+    const max = () => el.scrollWidth - el.clientWidth;
+    const clamp = (v: number) => Math.max(0, Math.min(max(), v));
+
+    const tick = () => {
+      const delta = targetX - el.scrollLeft;
+      if (Math.abs(delta) < 0.5) {
+        el.scrollLeft = targetX;
+        rafId = null;
+        return;
+      }
+      // Ease-out: cover ~12% of the remaining distance each frame at 60fps.
+      el.scrollLeft += delta * 0.12;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+      if (rafId === null) rafId = requestAnimationFrame(tick);
+    };
+
     const onWheel = (e: WheelEvent) => {
-      if (e.deltaY === 0) return;
       const absY = Math.abs(e.deltaY);
       const absX = Math.abs(e.deltaX);
-      if (absY <= absX) return;
+      // Horizontal trackpad gestures fall through to native scroll.
+      if (absY === 0 || absY <= absX) return;
       e.preventDefault();
-      el.scrollLeft += e.deltaY;
+      // Light gain so a normal wheel notch advances a decent chunk
+      // without feeling twitchy.
+      targetX = clamp(targetX + e.deltaY * 1.15);
+      start();
     };
 
     el.addEventListener("wheel", onWheel, { passive: false });
@@ -213,19 +240,45 @@ export default function StoryStrip() {
     // Arrow keys page through frames when the strip has focus.
     const onKey = (e: KeyboardEvent) => {
       const w = el.clientWidth;
-      if (e.key === "ArrowRight" || e.key === "PageDown") {
+      if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
         e.preventDefault();
-        el.scrollBy({ left: w, behavior: "smooth" });
+        targetX = clamp(Math.round(targetX / w) * w + w);
+        start();
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
         e.preventDefault();
-        el.scrollBy({ left: -w, behavior: "smooth" });
+        targetX = clamp(Math.round(targetX / w) * w - w);
+        start();
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        targetX = 0;
+        start();
+      } else if (e.key === "End") {
+        e.preventDefault();
+        targetX = max();
+        start();
       }
     };
     el.addEventListener("keydown", onKey);
 
+    // If anything else (touch swipe, trackpad horizontal) moves scrollLeft,
+    // re-sync the target so the next wheel event continues from that point
+    // instead of jumping back to where the lerp left off.
+    let syncTimer: number | null = null;
+    const onScroll = () => {
+      if (rafId !== null) return; // currently lerping, ignore
+      if (syncTimer !== null) window.clearTimeout(syncTimer);
+      syncTimer = window.setTimeout(() => {
+        targetX = el.scrollLeft;
+      }, 80);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+
     return () => {
       el.removeEventListener("wheel", onWheel);
       el.removeEventListener("keydown", onKey);
+      el.removeEventListener("scroll", onScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      if (syncTimer !== null) window.clearTimeout(syncTimer);
     };
   }, []);
 

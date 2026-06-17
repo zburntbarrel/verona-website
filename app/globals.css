@@ -974,9 +974,12 @@ details > summary::-webkit-details-marker {
   height: 100svh;
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x mandatory;
+  /* proximity (not mandatory) so the browser doesn't fight the lerp
+     animation mid-sweep; it settles to a frame only after the user pauses. */
+  scroll-snap-type: x proximity;
   scrollbar-width: none;
   background: #131e18;
+  scroll-behavior: auto;
 }
 
 .story-strip::-webkit-scrollbar {
