@@ -1475,6 +1475,17 @@ body:has(.story-strip) .story-strip {
   }
 }
 
+.logo-glyph {
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.logo-glyph:focus,
+.logo-glyph:focus-visible {
+  outline: none;
+}
+
 .logo-glyph-flying .logo-glyph-bird-top {
   animation: logo-bird-top-fly 1100ms cubic-bezier(0.37, 0, 0.63, 1) both;
 }
