@@ -238,14 +238,29 @@ export function BrandProof() {
   return (
     <section
       className="relative overflow-hidden text-sea"
-      style={{
-        backgroundColor: "#e5dccb",
-        backgroundImage: "url('/assets/floral-roses-bird.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
+      style={{ backgroundColor: "#e5dccb" }}
     >
+      {/* Floral plate is two side-by-side copies of the same image animating
+          translateX 0 → -50%. Lives as an absolute layer behind the linen
+          card so the imagery scrolls horizontally while the card sits still. */}
+      <div className="brand-floral-scroll" aria-hidden>
+        <div className="brand-floral-strip">
+          <img
+            src="/assets/floral-roses-bird.png"
+            alt=""
+            role="presentation"
+            draggable={false}
+          />
+          <img
+            src="/assets/floral-roses-bird.png"
+            alt=""
+            role="presentation"
+            draggable={false}
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+
       <div className="relative py-24 md:py-32 lg:py-40">
         <div className="relative w-full bg-linen px-6 py-12 md:px-12 md:py-16 lg:px-20 lg:py-20">
           <LogoGlyph className="absolute right-6 top-6 h-7 w-auto text-sea md:right-10 md:top-10" />

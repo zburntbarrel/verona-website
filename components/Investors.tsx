@@ -191,7 +191,7 @@ export default function Investors() {
   return (
     <section
       ref={root}
-      className="relative overflow-hidden bg-sea py-20 text-linen"
+      className="relative overflow-hidden bg-sea pb-6 pt-20 text-linen"
       style={{
         backgroundImage: "url('/assets/investors/bg.png')",
         backgroundSize: "cover",

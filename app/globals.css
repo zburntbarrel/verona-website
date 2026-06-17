@@ -1684,3 +1684,41 @@ body:has(.story-strip) .story-strip {
     animation: none;
   }
 }
+
+/* Floral background plate that scrolls horizontally behind the brands
+   card. Two side-by-side copies of the painting so the loop seam is
+   invisible at -50% translate. Long duration for editorial pacing. */
+.brand-floral-scroll {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.brand-floral-strip {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: brand-floral-scroll 90s linear infinite;
+  will-change: transform;
+}
+
+.brand-floral-strip img {
+  height: 100%;
+  width: auto;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+@keyframes brand-floral-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-floral-strip {
+    animation: none;
+  }
+}

@@ -44,7 +44,7 @@ export default function VideoFounder() {
   return (
     <section
       ref={root}
-      className="relative flex h-screen items-center justify-center overflow-hidden bg-sea"
+      className="relative flex min-h-[70vh] items-start justify-center overflow-hidden bg-sea pt-6"
       style={{
         backgroundImage: "url('/assets/investors/bg.png')",
         backgroundSize: "cover",
