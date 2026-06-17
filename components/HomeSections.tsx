@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { externalLinks } from "@/lib/site";
 import VerifiedFactsOrbit from "@/components/VerifiedFactsOrbit";
@@ -200,7 +201,7 @@ export function BrandProof() {
             className="brand-marquee-row"
             data-reverse={row.reverse ? "true" : undefined}
             style={
-              { "--marquee-duration": row.duration } as React.CSSProperties
+              { "--marquee-duration": row.duration } as CSSProperties
             }
           >
             {/* Doubled strip = one full duplicate so the loop point is

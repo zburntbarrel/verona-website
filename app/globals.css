@@ -1362,56 +1362,91 @@ body:has(.story-strip) .story-strip {
 }
 
 .logo-glyph-flying .logo-glyph-bird-top {
-  animation: logo-bird-top-fly 1.8s cubic-bezier(0.45, 0.05, 0.2, 1) both;
+  animation: logo-bird-top-fly 1100ms cubic-bezier(0.37, 0, 0.63, 1) both;
 }
 
 .logo-glyph-flying .logo-glyph-bird-bottom {
-  animation: logo-bird-bottom-fly 1.8s cubic-bezier(0.45, 0.05, 0.2, 1) both;
+  animation: logo-bird-bottom-fly 1100ms cubic-bezier(0.37, 0, 0.63, 1) both;
 }
 
-/* Subtle diamond pulse while the birds are gone, so it doesn't sit dead. */
-.logo-glyph-flying .logo-glyph-diamond {
-  animation: logo-diamond-pulse 1.8s ease-in-out both;
-}
-
-/* Curved departure / return. Intermediate keyframes trace an arc through
-   2D space — bird tucks first (anticipation), sweeps outward along a
-   curve, holds off-screen, then re-enters from a different angle and
-   curves back into the wordmark. */
+/* One fluid arc — bird sweeps out and back in a single continuous motion,
+   no off-screen hold and no opacity drop. The midpoint is the apex of
+   the arc; rotation eases smoothly from 0 → max → 0 in one swing. */
 @keyframes logo-bird-top-fly {
-  /* fly out (0-36%) */
-  0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-  10%  { transform: translate(-3px, 3px) rotate(-6deg); opacity: 1; }
-  22%  { transform: translate(12px, -10px) rotate(10deg); opacity: 1; }
-  36%  { transform: translate(36px, -26px) rotate(26deg); opacity: 0; }
-  /* hold off-screen (36-50%) */
-  50%  { transform: translate(36px, -26px) rotate(26deg); opacity: 0; }
-  /* fly in smoothly (50-100%) — six waypoints with a slow opacity ramp
-     so the bird phases in from the distance instead of popping. The
-     rotation eases through zero around 82% (no sudden flips). */
-  58%  { transform: translate(34px, -24px) rotate(24deg); opacity: 0.06; }
-  66%  { transform: translate(30px, -18px) rotate(18deg); opacity: 0.2; }
-  74%  { transform: translate(22px, -10px) rotate(8deg); opacity: 0.5; }
-  82%  { transform: translate(13px, -3px) rotate(0deg); opacity: 0.78; }
-  91%  { transform: translate(5px, 1px) rotate(-3deg); opacity: 0.95; }
-  100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(14px, -18px) rotate(14deg); }
+  50%  { transform: translate(22px, -28px) rotate(22deg); }
+  75%  { transform: translate(14px, -18px) rotate(14deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 @keyframes logo-bird-bottom-fly {
-  0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-  10%  { transform: translate(3px, -3px) rotate(6deg); opacity: 1; }
-  22%  { transform: translate(-12px, 10px) rotate(-10deg); opacity: 1; }
-  36%  { transform: translate(-36px, 26px) rotate(-26deg); opacity: 0; }
-  50%  { transform: translate(-36px, 26px) rotate(-26deg); opacity: 0; }
-  58%  { transform: translate(-34px, 24px) rotate(-24deg); opacity: 0.06; }
-  66%  { transform: translate(-30px, 18px) rotate(-18deg); opacity: 0.2; }
-  74%  { transform: translate(-22px, 10px) rotate(-8deg); opacity: 0.5; }
-  82%  { transform: translate(-13px, 3px) rotate(0deg); opacity: 0.78; }
-  91%  { transform: translate(-5px, -1px) rotate(3deg); opacity: 0.95; }
-  100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(-14px, 18px) rotate(-14deg); }
+  50%  { transform: translate(-22px, 28px) rotate(-22deg); }
+  75%  { transform: translate(-14px, 18px) rotate(-14deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-@keyframes logo-diamond-pulse {
-  0%, 100% { transform: scale(1); }
-  35%, 60% { transform: scale(1.18); }
+/* Brand logo marquee. Three stacked rows scroll in alternating directions
+   at slightly different cadences for organic motion. Each row contains the
+   logo strip duplicated twice — the animation translates -50%, which is
+   exactly one copy of the strip, so the loop seam is invisible. */
+.brand-marquee {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  --logo-row-height: 96px;
+  padding: 8px 0;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+
+@media (min-width: 768px) {
+  .brand-marquee {
+    --logo-row-height: 120px;
+    gap: 28px;
+  }
+}
+
+.brand-marquee-row {
+  width: 100%;
+  height: var(--logo-row-height);
+  overflow: hidden;
+}
+
+.brand-marquee-strip {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: brand-marquee-scroll var(--marquee-duration, 60s) linear infinite;
+  will-change: transform;
+}
+
+.brand-marquee-row[data-reverse="true"] .brand-marquee-strip {
+  animation-direction: reverse;
+}
+
+.brand-marquee-img {
+  height: 100%;
+  width: auto;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+@keyframes brand-marquee-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee-strip {
+    animation: none;
+  }
 }

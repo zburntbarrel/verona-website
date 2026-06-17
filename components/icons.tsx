@@ -30,7 +30,7 @@ export function LogoGlyph(props: SVGProps<SVGSVGElement>) {
     target.classList.add("logo-glyph-flying");
     window.setTimeout(() => {
       target.classList.remove("logo-glyph-flying");
-    }, 1800);
+    }, 1100);
     onClick?.(e);
   };
   return (
