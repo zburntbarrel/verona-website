@@ -241,10 +241,38 @@ export default function StoryStrip() {
     };
     el.addEventListener("keydown", onKey);
 
+    // --rise progress per frame. 0 = image fully translated down out of view,
+    // 1 = image at rest. Smoothstep across the entering half so the rise feels
+    // like a video plate coming up as the cover comes into view.
+    const frames = Array.from(el.querySelectorAll<HTMLElement>(".story-frame"));
+    const updateRise = () => {
+      const w = el.clientWidth;
+      if (!w) return;
+      const sx = el.scrollLeft;
+      for (let i = 0; i < frames.length; i++) {
+        const frame = frames[i];
+        // offset > 0 = frame is to the right of the viewport center,
+        // offset < 0 = frame is to the left. Normalize by viewport width.
+        const offset = (i * w - sx) / w;
+        // Rise from 0 (one frame to the right) to 1 (centered or left of center).
+        // Frames already past center stay at full rise so they don't drop
+        // back down on the way out — that would feel like an artifact.
+        const raw = 1 - Math.min(1, Math.max(0, offset));
+        // smoothstep for a softer entrance
+        const eased = raw * raw * (3 - 2 * raw);
+        frame.style.setProperty("--rise", eased.toFixed(3));
+      }
+    };
+    updateRise();
+    el.addEventListener("scroll", updateRise, { passive: true });
+    window.addEventListener("resize", updateRise);
+
     return () => {
       if (activeTween !== null) cancelAnimationFrame(activeTween);
       el.removeEventListener("wheel", onWheel);
       el.removeEventListener("keydown", onKey);
+      el.removeEventListener("scroll", updateRise);
+      window.removeEventListener("resize", updateRise);
     };
   }, []);
 

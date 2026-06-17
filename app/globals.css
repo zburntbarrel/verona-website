@@ -1027,7 +1027,7 @@ details > summary::-webkit-details-marker {
      the browser yanking mid-animation. */
   scroll-snap-type: none;
   scrollbar-width: none;
-  background: #131e18;
+  background: #192550;
   scroll-behavior: auto;
 }
 
@@ -1043,29 +1043,50 @@ details > summary::-webkit-details-marker {
   overflow: hidden;
 }
 
+/* Navy strip background is the persistent backdrop. Each frame's image is
+   a "video plate" that rises into view as the horizontal scroll enters
+   the frame, sliding from below up to its resting position.
+   --rise: 0 = fully hidden below the frame, 1 = at rest. Set by a scroll
+   listener in StoryStrip.tsx; defaults to 1 so the plate is visible even
+   before any scroll fires (and on unsupported browsers). */
+.story-frame {
+  --rise: 1;
+}
+
 .story-frame-image {
   position: absolute;
-  inset: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 78%;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  transform-origin: bottom center;
+  transform: translateY(calc((1 - var(--rise)) * 70%));
+  opacity: calc(0.3 + var(--rise) * 0.7);
+  will-change: transform, opacity;
 }
 
+/* Overlay sits over the video plate only. Subtle navy tint at the top of
+   the plate so the rising edge blends into the persistent navy backdrop. */
 .story-frame-overlay {
   position: absolute;
-  inset: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 78%;
+  pointer-events: none;
 }
 
-/* Minimal tint behind the card so the underlying photo doesn't fight the
-   navbar/footer brand marks at the very top and bottom of the viewport. */
 .story-frame-overlay-dark {
   background:
-    linear-gradient(180deg, rgba(19, 30, 24, 0.28) 0%, rgba(19, 30, 24, 0) 14%, rgba(19, 30, 24, 0) 86%, rgba(19, 30, 24, 0.32) 100%);
+    linear-gradient(180deg, rgba(25, 37, 80, 0.55) 0%, rgba(25, 37, 80, 0) 14%, rgba(25, 37, 80, 0) 86%, rgba(19, 30, 24, 0.25) 100%);
 }
 
 .story-frame-overlay-light {
   background:
-    linear-gradient(180deg, rgba(248, 247, 243, 0.4) 0%, rgba(248, 247, 243, 0) 14%, rgba(248, 247, 243, 0) 86%, rgba(248, 247, 243, 0.42) 100%);
+    linear-gradient(180deg, rgba(25, 37, 80, 0.5) 0%, rgba(248, 247, 243, 0) 14%, rgba(248, 247, 243, 0) 86%, rgba(248, 247, 243, 0.35) 100%);
 }
 
 /* The frame is now a stage — imagery fills it, and a centered linen card
