@@ -263,11 +263,11 @@ details > summary::-webkit-details-marker {
     background-image: url('/assets/button-tapestry.jpg');
   }
 
-  /* Hover swaps the primary CTAs (Get $VERONA, Read the Litepaper, etc.)
-     to the blue toile pattern with a navy overlay that keeps the white
-     button text readable. Signup-form button is excluded — it should keep
-     its existing solid hover state. */
-  .accent-button:hover,
+  /* Hover swaps the in-body primary CTA (Read the Litepaper et al, class
+     .primary-action) to the blue toile pattern with a navy overlay that
+     keeps the white button text readable. The smaller navbar GET $VERONA
+     button (.accent-button) and the signup-form button are intentionally
+     excluded — they keep their solid hover state. */
   .primary-action:hover {
     background-image:
       linear-gradient(rgb(25 37 80 / 0.42), rgb(25 37 80 / 0.42)),
