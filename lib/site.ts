@@ -142,10 +142,21 @@ export const footerGroups = [
   },
 ];
 
-export const exchangeLinks: NavLink[] = [
-  { label: "KuCoin", href: "https://www.kucoin.com/", external: true },
-  { label: "Gate", href: "https://www.gate.com/", external: true },
-  { label: "MEXC", href: "https://www.mexc.com/", external: true },
+export type ExchangeLink = NavLink & { logo: string };
+
+export const exchangeLinks: ExchangeLink[] = [
+  { label: "Bybit", href: "https://www.bybit.com/en/trade/spot/XION/USDT", external: true, logo: "/assets/exchanges/bybit.png" },
+  { label: "Bitget", href: "https://www.bitget.com/spot/XIONUSDT", external: true, logo: "/assets/exchanges/bitget.png" },
+  { label: "KuCoin", href: "https://www.kucoin.com/trade/XION-USDT", external: true, logo: "/assets/exchanges/kucoin.png" },
+  { label: "MEXC", href: "https://www.mexc.com/en-GB/exchange/XION_USDT", external: true, logo: "/assets/exchanges/mexc.jpeg" },
+  { label: "Gate", href: "https://www.gate.io/id/trade/XION_USDT", external: true, logo: "/assets/exchanges/gate.png" },
+  { label: "Uniswap", href: "https://app.uniswap.org/explore/tokens/base/0xe4c3461a20f50dad7b9e88ca0222a255c4126fc0", external: true, logo: "/assets/exchanges/uniswap.png" },
+  { label: "Bithumb", href: "https://en.bithumb.com/", external: true, logo: "/assets/exchanges/bithumb.png" },
+  { label: "BingX", href: "https://bingx.com/en/spot/XIONUSDT/", external: true, logo: "/assets/exchanges/bingx.png" },
+  { label: "CoinW", href: "https://www.coinw.com/spot/xionusdt", external: true, logo: "/assets/exchanges/coinw.png" },
+  { label: "Osmosis", href: "https://app.osmosis.zone/assets/XION", external: true, logo: "/assets/exchanges/osmosis.png" },
+  { label: "Kraken", href: "https://www.kraken.com/", external: true, logo: "/assets/exchanges/kraken.png" },
+  { label: "LBank", href: "https://www.lbank.com/trade/xion_usdt", external: true, logo: "/assets/exchanges/lbank.png" },
 ];
 
 export const languages = ["English", "Chinese", "Korean"];

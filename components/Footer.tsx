@@ -46,9 +46,9 @@ export default function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
           {footerGroups.map((group) => (
             <div key={group.label} className="flex flex-col gap-4">
-              <h2 className="font-[family-name:var(--font-hedvig-sans)] text-[12px] uppercase tracking-[0.14em] text-sky">
+              <h3 className="font-[family-name:var(--font-hedvig-sans)] text-[12px] uppercase tracking-[0.14em] text-sky">
                 {group.label}
-              </h2>
+              </h3>
               <nav className="flex flex-col gap-3" aria-label={group.label}>
                 {group.links.map((link) => (
                   <FooterLink key={link.label} {...link} />
