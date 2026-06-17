@@ -37,6 +37,7 @@ export default function GetVeronaPage() {
           backgroundSize: "cover",
           backgroundPosition: "center 18%",
           backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
         }}
       >
         <div
@@ -88,13 +89,16 @@ export default function GetVeronaPage() {
           </div>
           <div className="mt-12 grid gap-4 md:grid-cols-3">
             {[
-              ["01", "Apps and agents build the network."],
-              ["02", "$VERONA is your part of it."],
-              ["03", "Staking secures the network and earns rewards for it. A stronger network is a smarter one."],
-            ].map(([step, body]) => (
-              <article key={step} className="proof-card min-h-[220px]">
-                <span>{step}</span>
-                <p className="mt-10 text-[24px] leading-tight">{body}</p>
+              ["Apps and agents build the network.", "1"],
+              ["$VERONA is your part of it.", "2"],
+              ["Staking secures the network and earns rewards for it. A stronger network is a smarter one.", "3"],
+            ].map(([body, floral]) => (
+              <article
+                key={floral}
+                className="proof-card min-h-[220px]"
+                data-floral={floral}
+              >
+                <p className="text-[24px] leading-tight">{body}</p>
               </article>
             ))}
           </div>
@@ -123,6 +127,7 @@ export default function GetVeronaPage() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
         }}
       >
         <div className="site-container relative py-24 md:py-32">
@@ -181,6 +186,7 @@ export default function GetVeronaPage() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
         }}
       >
         <div className="site-container relative py-24 md:py-32">

@@ -35,7 +35,7 @@ type NodeDef = {
 };
 
 const CORE = { rx: 1.2, ry: 1.0 };
-const SCALE = { rx: 2.5, ry: 1.3 };
+const SCALE = { rx: 2.5, ry: 2.4 };
 
 const NODES: NodeDef[] = [
   {
@@ -122,6 +122,7 @@ export default function VerifiedFactsOrbit() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const nodeRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const coreMedallionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -195,8 +196,8 @@ export default function VerifiedFactsOrbit() {
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const CORE_TRAVEL = reducedMotion ? 0 : Math.PI * 0.1;
-    const SCALE_TRAVEL = reducedMotion ? 0 : -Math.PI * 0.07;
+    const CORE_TRAVEL = reducedMotion ? 0 : Math.PI * 0.5;
+    const SCALE_TRAVEL = reducedMotion ? 0 : -Math.PI * 0.4;
 
     const handlePointer = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect();
@@ -265,6 +266,11 @@ export default function VerifiedFactsOrbit() {
       const coreOffset = smoothedScroll * CORE_TRAVEL;
       const scaleOffset = smoothedScroll * SCALE_TRAVEL;
 
+      if (coreMedallionRef.current) {
+        const panY = smoothedScroll * -500;
+        coreMedallionRef.current.style.backgroundPosition = `50% calc(50% + ${panY}px)`;
+      }
+
       renderer.render(scene, camera);
       updateOverlay(coreOffset, scaleOffset);
       raf = requestAnimationFrame(animate);
@@ -293,15 +299,19 @@ export default function VerifiedFactsOrbit() {
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 
       <div
-        className="absolute left-1/2 top-1/2 z-10 flex h-[20%] aspect-square -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full"
+        ref={coreMedallionRef}
+        className="absolute left-1/2 top-1/2 z-10 flex h-[20%] aspect-square -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full"
         style={{
-          background:
-            "radial-gradient(circle at 50% 45%, #eaf3f9 0%, #d9ebf5 60%, #cae1ee 100%)",
+          backgroundColor: "var(--color-sea)",
+          backgroundImage: "url('/assets/pattern-floral-blue.jpg')",
+          backgroundSize: "180%",
+          backgroundPosition: "center",
+          backgroundRepeat: "repeat",
           boxShadow:
-            "0 18px 38px -22px rgba(25,37,80,0.35), inset 0 0 0 1px rgba(25,37,80,0.12)",
+            "0 18px 38px -22px rgba(25,37,80,0.55), inset 0 0 0 1px rgba(248,247,243,0.18)",
         }}
       >
-        <LogoGlyph className="h-[40%] w-auto text-[color:var(--color-sea)]" />
+        <LogoGlyph className="relative h-[40%] w-auto text-[color:var(--color-linen)]" />
       </div>
 
       <div className="pointer-events-none absolute inset-0 z-20">
