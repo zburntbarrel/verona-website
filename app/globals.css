@@ -713,6 +713,42 @@ details > summary::-webkit-details-marker {
     opacity: 1;
   }
 
+  .secondary-action.floral-cta {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition:
+      background-color 520ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      color 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .secondary-action.floral-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgb(248 247 243 / 0.20), rgb(248 247 243 / 0.20)),
+      url('/assets/floral-hero-cta.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .secondary-action.floral-cta:hover,
+  .secondary-action.floral-cta:focus-visible {
+    background-color: transparent;
+    color: #192550;
+  }
+
+  .secondary-action.floral-cta:hover::before,
+  .secondary-action.floral-cta:focus-visible::before {
+    opacity: 1;
+  }
+
   .route-tile[data-floral="1"]::before {
     background-image:
       linear-gradient(rgb(248 247 243 / 0.70), rgb(248 247 243 / 0.70)),
@@ -1126,10 +1162,6 @@ details > summary::-webkit-details-marker {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  transform-origin: bottom center;
-  transform: translateY(calc((1 - var(--rise)) * 70%));
-  opacity: calc(0.3 + var(--rise) * 0.7);
-  will-change: transform, opacity;
 }
 
 /* Overlay sits over the full-frame image. */

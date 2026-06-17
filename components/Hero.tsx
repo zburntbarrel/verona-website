@@ -63,7 +63,7 @@ export default function Hero() {
             <a href={externalLinks.ero} target="_blank" rel="noreferrer" className="primary-action">
               Try Ero
             </a>
-            <a href={externalLinks.litepaper} target="_blank" rel="noreferrer" className="secondary-action text-sea">
+            <a href={externalLinks.litepaper} target="_blank" rel="noreferrer" className="secondary-action floral-cta text-sea">
               Read more
             </a>
           </div>
