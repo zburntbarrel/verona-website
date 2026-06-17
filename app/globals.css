@@ -1747,9 +1747,9 @@ body:has(.story-strip) .story-strip {
   }
 }
 
-/* Floral background plate that scrolls horizontally behind the brands
-   card. Two side-by-side copies of the painting so the loop seam is
-   invisible at -50% translate. Long duration for editorial pacing. */
+/* Floral background plate behind the brands card. Static — the floral
+   painting sits still above and below the card. (The two side-by-side
+   copies of the painting are harmless when the animation is off.) */
 .brand-floral-scroll {
   position: absolute;
   inset: 0;
@@ -1761,8 +1761,6 @@ body:has(.story-strip) .story-strip {
   display: flex;
   width: max-content;
   height: 100%;
-  animation: brand-floral-scroll 90s linear infinite;
-  will-change: transform;
 }
 
 .brand-floral-strip img {
@@ -1772,15 +1770,4 @@ body:has(.story-strip) .story-strip {
   user-select: none;
   pointer-events: none;
   flex-shrink: 0;
-}
-
-@keyframes brand-floral-scroll {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .brand-floral-strip {
-    animation: none;
-  }
 }
