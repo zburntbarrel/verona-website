@@ -234,11 +234,11 @@ export function BrandProof() {
         </div>
       </div>
 
-      <div className="relative py-24 md:py-32 lg:py-40">
+      <div className="relative py-40 md:py-56 lg:py-72">
         <div className="relative w-full bg-linen px-6 py-6 md:px-12 md:py-8 lg:px-20 lg:py-10">
           <div className="section-copy mx-auto max-w-[760px] text-center">
             <h2 className="display-heading text-[56px] md:text-[80px]">
-              Verona, leveraged by brands you <em>already use</em>.
+              Leveraged by brands you <em>already use</em>.
             </h2>
           </div>
           <div className="brand-marquee mt-10 md:mt-14" aria-label="Brands using Verona">
