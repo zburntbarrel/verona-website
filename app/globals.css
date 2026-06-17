@@ -263,11 +263,12 @@ details > summary::-webkit-details-marker {
     background-image: url('/assets/button-tapestry.jpg');
   }
 
-  /* Hover swaps the button to the blue toile pattern. A subtle navy
-     overlay keeps the white CTA text readable on the lighter pattern. */
+  /* Hover swaps the primary CTAs (Get $VERONA, Read the Litepaper, etc.)
+     to the blue toile pattern with a navy overlay that keeps the white
+     button text readable. Signup-form button is excluded — it should keep
+     its existing solid hover state. */
   .accent-button:hover,
-  .primary-action:hover,
-  .signup-form button:hover {
+  .primary-action:hover {
     background-image:
       linear-gradient(rgb(25 37 80 / 0.42), rgb(25 37 80 / 0.42)),
       url('/assets/button-hover-toile.jpg');
