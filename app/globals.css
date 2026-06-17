@@ -247,7 +247,6 @@ details > summary::-webkit-details-marker {
   .primary-action {
     border: 1px solid rgb(25 37 80 / 0.55);
     background-color: #192550;
-    background-image: url('/assets/button-tapestry.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -256,7 +255,21 @@ details > summary::-webkit-details-marker {
     color: #f8f7f3;
   }
 
-  .accent-button:hover,
+  .accent-button {
+    background-image: url('/assets/button-accent.jpg');
+  }
+
+  .primary-action {
+    background-image: url('/assets/button-tapestry.jpg');
+  }
+
+  .accent-button:hover {
+    background-image:
+      linear-gradient(rgb(76 177 223 / 0.20), rgb(76 177 223 / 0.20)),
+      url('/assets/button-accent.jpg');
+    border-color: rgb(76 177 223 / 0.85);
+  }
+
   .primary-action:hover,
   .signup-form button:hover {
     background-image:
