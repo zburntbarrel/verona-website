@@ -2,7 +2,6 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { externalLinks } from "@/lib/site";
 import VerifiedFactsOrbit from "@/components/VerifiedFactsOrbit";
-import { LogoGlyph } from "@/components/icons";
 
 const proofSources = [
   ["Websites", "Prove what a site shows about you, without handing over the login."],
@@ -179,11 +178,15 @@ export function BrandProof() {
   // it instead of flanking left/right. Two text rows of brand names
   // scroll in opposite directions inside the card.
   const ImageRow = ({
+    src,
     duration,
     reverse,
+    alt,
   }: {
+    src: string;
     duration: string;
     reverse?: boolean;
+    alt: string;
   }) => (
     <div
       className="brand-marquee-row"
@@ -195,8 +198,8 @@ export function BrandProof() {
           // eslint-disable-next-line @next/next/no-img-element
           <img
             key={copy}
-            src="/assets/brand-row.png"
-            alt={copy === 0 ? "Brands using Verona" : ""}
+            src={src}
+            alt={copy === 0 ? alt : ""}
             aria-hidden={copy === 1}
             className="brand-marquee-img"
           />
@@ -232,17 +235,14 @@ export function BrandProof() {
       </div>
 
       <div className="relative py-24 md:py-32 lg:py-40">
-        <div className="relative w-full bg-linen px-6 py-12 md:px-12 md:py-16 lg:px-20 lg:py-20">
-          <LogoGlyph className="absolute right-6 top-6 h-7 w-auto text-sea md:right-10 md:top-10" />
+        <div className="relative w-full bg-linen px-6 py-6 md:px-12 md:py-8 lg:px-20 lg:py-10">
           <div className="section-copy mx-auto max-w-[760px] text-center">
-            <p className="eyebrow">Brands</p>
-            <h2 className="display-heading text-[44px] md:text-[60px]">
+            <h2 className="display-heading text-[56px] md:text-[80px]">
               Verona, leveraged by brands you <em>already use</em>.
             </h2>
           </div>
           <div className="brand-marquee mt-10 md:mt-14" aria-label="Brands using Verona">
-            <ImageRow duration="80s" />
-            <ImageRow duration="100s" reverse />
+            <ImageRow src="/assets/brand-row-1.png" duration="80s" alt="Brands using Verona" />
           </div>
         </div>
       </div>
