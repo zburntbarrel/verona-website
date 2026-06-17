@@ -1335,16 +1335,16 @@ body:has(.story-strip) .story-strip {
 }
 
 .logo-glyph-flying .logo-glyph-bird-top {
-  animation: logo-bird-top-fly 1.4s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+  animation: logo-bird-top-fly 1.6s ease-in-out both;
 }
 
 .logo-glyph-flying .logo-glyph-bird-bottom {
-  animation: logo-bird-bottom-fly 1.4s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+  animation: logo-bird-bottom-fly 1.6s ease-in-out both;
 }
 
 /* Subtle diamond pulse while the birds are gone, so it doesn't sit dead. */
 .logo-glyph-flying .logo-glyph-diamond {
-  animation: logo-diamond-pulse 1.4s ease-in-out both;
+  animation: logo-diamond-pulse 1.6s ease-in-out both;
 }
 
 /* Curved departure / return. Intermediate keyframes trace an arc through
