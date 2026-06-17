@@ -1,32 +1,5 @@
 @import "tailwindcss";
 
-/* Hide Google Translate banner/balloon UI — translation is driven by the
-   cookie set in LanguageSwitcher, not Google's chrome. */
-.goog-te-banner-frame,
-.goog-te-banner-frame.skiptranslate,
-.goog-te-balloon-frame,
-.goog-tooltip,
-.goog-tooltip:hover,
-#goog-gt-tt,
-.skiptranslate iframe {
-  display: none !important;
-  visibility: hidden !important;
-}
-
-body {
-  top: 0 !important;
-}
-
-font[style*="background-color"] {
-  background-color: transparent !important;
-  box-shadow: none !important;
-}
-
-.language-option[data-active="true"] {
-  background: #192550;
-  color: #f8f7f3;
-}
-
 @theme {
   /* Verona brand palette */
   --color-sea: #192550;
@@ -287,7 +260,7 @@ details > summary::-webkit-details-marker {
   }
 
   .primary-action {
-    background-image: url('/assets/button-accent.jpg');
+    background-image: url('/assets/button-tapestry.jpg');
   }
 
   .accent-button:hover {
@@ -301,7 +274,7 @@ details > summary::-webkit-details-marker {
   .signup-form button:hover {
     background-image:
       linear-gradient(rgb(76 177 223 / 0.20), rgb(76 177 223 / 0.20)),
-      url('/assets/button-accent.jpg');
+      url('/assets/button-tapestry.jpg');
     border-color: rgb(76 177 223 / 0.85);
   }
 
@@ -819,7 +792,7 @@ details > summary::-webkit-details-marker {
     font-size: 11px;
     line-height: 1.35;
     letter-spacing: 0.01em;
-    color: var(--color-linen);
+    color: var(--color-sea);
     opacity: 0.92;
     white-space: pre-line;
     pointer-events: none;
@@ -883,14 +856,10 @@ details > summary::-webkit-details-marker {
   }
 
   .signup-form button {
-    border: 1px solid rgb(25 37 80 / 0.55);
-    background-color: #192550;
-    background-image: url('/assets/button-accent.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    border: 1px solid #4cb1df;
+    background: #4cb1df;
     padding: 0 16px;
-    color: #ffffff;
+    color: #192550;
   }
 
   .footer-link {
@@ -913,67 +882,6 @@ details > summary::-webkit-details-marker {
     justify-content: space-between;
     padding: 22px;
     color: #192550;
-  }
-
-  .cta-link {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    transition:
-      color 320ms ease,
-      border-color 320ms ease;
-  }
-
-  .cta-link::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 320ms ease;
-    pointer-events: none;
-  }
-
-  .cta-link[data-floral="1"]::before {
-    background-image:
-      linear-gradient(rgb(248 247 243 / 0.30), rgb(248 247 243 / 0.30)),
-      url('/assets/floral-pink-rose.jpg');
-  }
-
-  .cta-link[data-floral="2"]::before {
-    background-image:
-      linear-gradient(rgb(248 247 243 / 0.30), rgb(248 247 243 / 0.30)),
-      url('/assets/floral-birds-pine.jpg');
-  }
-
-  .cta-link[data-floral="3"]::before {
-    background-image:
-      linear-gradient(rgb(25 37 80 / 0.55), rgb(25 37 80 / 0.55)),
-      url('/assets/pattern-floral-blue.jpg');
-    background-size: cover, 180%;
-    background-repeat: no-repeat, repeat;
-  }
-
-  .cta-link:hover::before,
-  .cta-link:focus-visible::before {
-    opacity: 1;
-  }
-
-  .cta-link[data-floral="1"]:hover,
-  .cta-link[data-floral="1"]:focus-visible,
-  .cta-link[data-floral="2"]:hover,
-  .cta-link[data-floral="2"]:focus-visible {
-    border-color: rgb(25 37 80 / 0.55);
-    color: #192550;
-  }
-
-  .cta-link[data-floral="3"]:hover,
-  .cta-link[data-floral="3"]:focus-visible {
-    border-color: rgb(248 247 243 / 0.85);
-    color: #f8f7f3;
   }
 
   .route-tile p {
@@ -1092,7 +1000,7 @@ details > summary::-webkit-details-marker {
      the browser yanking mid-animation. */
   scroll-snap-type: none;
   scrollbar-width: none;
-  background: #192550;
+  background: #131e18;
   scroll-behavior: auto;
 }
 
@@ -1108,50 +1016,29 @@ details > summary::-webkit-details-marker {
   overflow: hidden;
 }
 
-/* Navy strip background is the persistent backdrop. Each frame's image is
-   a "video plate" that rises into view as the horizontal scroll enters
-   the frame, sliding from below up to its resting position.
-   --rise: 0 = fully hidden below the frame, 1 = at rest. Set by a scroll
-   listener in StoryStrip.tsx; defaults to 1 so the plate is visible even
-   before any scroll fires (and on unsupported browsers). */
-.story-frame {
-  --rise: 1;
-}
-
 .story-frame-image {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 78%;
+  inset: 0;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  transform-origin: bottom center;
-  transform: translateY(calc((1 - var(--rise)) * 70%));
-  opacity: calc(0.3 + var(--rise) * 0.7);
-  will-change: transform, opacity;
 }
 
-/* Overlay sits over the video plate only. Subtle navy tint at the top of
-   the plate so the rising edge blends into the persistent navy backdrop. */
 .story-frame-overlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 78%;
-  pointer-events: none;
+  inset: 0;
 }
 
+/* Minimal tint behind the card so the underlying photo doesn't fight the
+   navbar/footer brand marks at the very top and bottom of the viewport. */
 .story-frame-overlay-dark {
   background:
-    linear-gradient(180deg, rgba(25, 37, 80, 0.55) 0%, rgba(25, 37, 80, 0) 14%, rgba(25, 37, 80, 0) 86%, rgba(19, 30, 24, 0.25) 100%);
+    linear-gradient(180deg, rgba(19, 30, 24, 0.28) 0%, rgba(19, 30, 24, 0) 14%, rgba(19, 30, 24, 0) 86%, rgba(19, 30, 24, 0.32) 100%);
 }
 
 .story-frame-overlay-light {
   background:
-    linear-gradient(180deg, rgba(25, 37, 80, 0.5) 0%, rgba(248, 247, 243, 0) 14%, rgba(248, 247, 243, 0) 86%, rgba(248, 247, 243, 0.35) 100%);
+    linear-gradient(180deg, rgba(248, 247, 243, 0.4) 0%, rgba(248, 247, 243, 0) 14%, rgba(248, 247, 243, 0) 86%, rgba(248, 247, 243, 0.42) 100%);
 }
 
 /* The frame is now a stage — imagery fills it, and a centered linen card
@@ -1242,19 +1129,13 @@ details > summary::-webkit-details-marker {
 
 .story-frame-card-footer {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 18px;
   width: 100%;
   margin-top: 8px;
   padding-top: 24px;
   border-top: 1px solid rgba(25, 37, 80, 0.12);
-  text-align: center;
-}
-
-.story-frame-card-mark-bottom {
-  color: #192550;
-  opacity: 0.85;
 }
 
 .story-frame-card-caption,
@@ -1265,11 +1146,11 @@ details > summary::-webkit-details-marker {
   text-transform: uppercase;
   color: #192550;
   opacity: 0.7;
-  margin: 0;
 }
 
 .story-frame-card-caption {
-  max-width: 48ch;
+  text-align: left;
+  max-width: 36ch;
   line-height: 1.5;
 }
 
@@ -1310,7 +1191,7 @@ body:has(.story-strip) header:has(nav) .language-trigger {
 }
 
 body:has(.story-strip) header:has(nav) .accent-button {
-  color: #f8f7f3;
+  color: #192550;
 }
 
 body:has(.story-strip) .story-strip {
@@ -1318,62 +1199,294 @@ body:has(.story-strip) .story-strip {
   padding-top: 0;
 }
 
-/* Logo glyph click animation. The two bird/wave paths fly outward in
-   opposite directions and fade out, the diamond holds its position, then
-   the birds return. Lives outside @layer so Tailwind never purges. */
-.logo-glyph {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+/* ==========================================================================
+   BLOG
+   Append this block to app/globals.css. Uses the existing tokens, radii
+   (2-6px), fonts, and hover language. The featured panel and closing CTA use
+   the toolkit's inline parallax-floral recipe (see the blog pages), so there
+   are no bespoke classes for them here. Nothing below overrides existing
+   selectors.
+   ========================================================================== */
+
+@layer components {
+  /* Shared meta row: author / date / reading time. Inherits color so it
+     stays legible inside the inverting .article-card on hover. */
+  .article-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-hedvig-sans), Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: inherit;
+    opacity: 0.72;
+  }
+
+  /* Card grid (index archive + related-posts band). */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Category filter chips. */
+  .blog-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .blog-filter-chip {
+    min-height: 38px;
+    border: 1px solid rgb(25 37 80 / 0.28);
+    border-radius: 4px;
+    padding: 0 16px;
+    font-family: var(--font-hedvig-sans), Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #192550;
+    background: transparent;
+    cursor: pointer;
+    transition:
+      background-color 160ms ease,
+      border-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .blog-filter-chip:hover,
+  .blog-filter-chip:focus-visible {
+    border-color: #4cb1df;
+  }
+
+  .blog-filter-chip[aria-pressed="true"] {
+    background: #192550;
+    border-color: #192550;
+    color: #f8f7f3;
+  }
+
+  /* Article layout: prose column with an optional sticky TOC aside. */
+  .blog-article {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .blog-back {
+    display: inline-block;
+  }
+
+  .blog-toc {
+    display: none;
+  }
+
+  .blog-prose {
+    max-width: 680px;
+  }
+
+  .prose-lead {
+    font-family: var(--font-garamond), Georgia, serif;
+    font-size: 24px;
+    line-height: 1.35;
+    margin-bottom: 28px;
+  }
+
+  .prose-p {
+    font-family: var(--font-hedvig-serif), Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+  }
+
+  .prose-heading {
+    font-family: var(--font-garamond), Georgia, serif;
+    font-size: 30px;
+    line-height: 1.05;
+    margin: 40px 0 16px;
+    scroll-margin-top: 96px;
+  }
+
+  .prose-list {
+    margin: 0 0 22px 0;
+    padding-left: 22px;
+    list-style: disc;
+  }
+
+  .prose-list li {
+    font-family: var(--font-hedvig-serif), Georgia, serif;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .prose-quote {
+    margin: 28px 0;
+    padding: 4px 0 4px 22px;
+    border-left: 2px solid #b56135;
+  }
+
+  .prose-quote p {
+    font-family: var(--font-garamond), Georgia, serif;
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .prose-quote cite {
+    display: block;
+    margin-top: 12px;
+    font-family: var(--font-hedvig-sans), Arial, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.72;
+  }
+
+  .blog-share {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 44px;
+    padding-top: 24px;
+    border-top: 1px solid rgb(25 37 80 / 0.14);
+  }
+
+  .blog-share a {
+    font-family: var(--font-hedvig-sans), Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: #192550;
+    transition: color 160ms ease;
+  }
+
+  .blog-share a:hover,
+  .blog-share a:focus-visible {
+    color: #b56135;
+  }
 }
 
-.logo-glyph-diamond,
-.logo-glyph-bird-top,
-.logo-glyph-bird-bottom {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: none;
+@media (min-width: 768px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-.logo-glyph-flying .logo-glyph-bird-top {
-  animation: logo-bird-top-fly 1.6s ease-in-out both;
+@media (min-width: 1024px) {
+  .blog-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .blog-article {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 56px;
+  }
+
+  .blog-toc {
+    display: block;
+    position: sticky;
+    top: 96px;
+    align-self: start;
+  }
+
+  .blog-toc nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .blog-toc a {
+    font-family: var(--font-hedvig-sans), Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #192550;
+    opacity: 0.74;
+    transition: color 160ms ease, opacity 160ms ease;
+  }
+
+  .blog-toc a:hover,
+  .blog-toc a:focus-visible {
+    color: #b56135;
+    opacity: 1;
+  }
 }
 
-.logo-glyph-flying .logo-glyph-bird-bottom {
-  animation: logo-bird-bottom-fly 1.6s ease-in-out both;
-}
+@layer components {
+  /* Image-backed article card: floral photo + navy scrim, white text.
+     Floral is chosen by category in ArticleCard (data-floral). */
+  .blog-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    min-height: 320px;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+    border-radius: 4px;
+    color: #f8f7f3;
+    background-color: #192550;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
 
-/* Subtle diamond pulse while the birds are gone, so it doesn't sit dead. */
-.logo-glyph-flying .logo-glyph-diamond {
-  animation: logo-diamond-pulse 1.6s ease-in-out both;
-}
+  .blog-card:hover,
+  .blog-card:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 48px rgb(25 37 80 / 0.28);
+  }
 
-/* Curved departure / return. Intermediate keyframes trace an arc through
-   2D space — bird tucks first (anticipation), sweeps outward along a
-   curve, holds off-screen, then re-enters from a different angle and
-   curves back into the wordmark. */
-@keyframes logo-bird-top-fly {
-  0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-  10%  { transform: translate(-3px, 3px) rotate(-6deg); opacity: 1; }
-  22%  { transform: translate(12px, -10px) rotate(10deg); opacity: 1; }
-  36%  { transform: translate(36px, -26px) rotate(26deg); opacity: 0; }
-  58%  { transform: translate(36px, -26px) rotate(26deg); opacity: 0; }
-  72%  { transform: translate(28px, -8px) rotate(-8deg); opacity: 0.35; }
-  88%  { transform: translate(10px, 3px) rotate(-4deg); opacity: 0.9; }
-  100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-}
+  .blog-card-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgb(25 37 80 / 0.12) 0%,
+      rgb(25 37 80 / 0.5) 46%,
+      rgb(19 30 24 / 0.9) 100%
+    );
+  }
 
-@keyframes logo-bird-bottom-fly {
-  0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-  10%  { transform: translate(3px, -3px) rotate(6deg); opacity: 1; }
-  22%  { transform: translate(-12px, 10px) rotate(-10deg); opacity: 1; }
-  36%  { transform: translate(-36px, 26px) rotate(-26deg); opacity: 0; }
-  58%  { transform: translate(-36px, 26px) rotate(-26deg); opacity: 0; }
-  72%  { transform: translate(-28px, 8px) rotate(8deg); opacity: 0.35; }
-  88%  { transform: translate(-10px, -3px) rotate(4deg); opacity: 0.9; }
-  100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-}
+  .blog-card-body {
+    position: relative;
+  }
 
-@keyframes logo-diamond-pulse {
-  0%, 100% { transform: scale(1); }
-  35%, 60% { transform: scale(1.18); }
+  .blog-card-cat {
+    font-family: var(--font-hedvig-sans), Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #bea64d;
+  }
+
+  .blog-card h3 {
+    font-family: var(--font-garamond), Georgia, serif;
+    font-size: 28px;
+    line-height: 1.02;
+    margin-top: 10px;
+  }
+
+  .blog-card .article-card-meta {
+    color: #e5dccb;
+    opacity: 0.92;
+    margin-top: 14px;
+  }
+
+  .blog-card[data-floral="product"] {
+    background-image: url("/assets/blog-floral-product.jpg");
+  }
+  .blog-card[data-floral="partnerships"] {
+    background-image: url("/assets/blog-floral-partnerships.jpg");
+  }
+  .blog-card[data-floral="custody"] {
+    background-image: url("/assets/blog-floral-custody.jpg");
+  }
+  .blog-card[data-floral="exchanges"] {
+    background-image: url("/assets/blog-floral-exchanges.jpg");
+  }
+  .blog-card[data-floral="company"] {
+    background-image: url("/assets/blog-floral-company.jpg");
+  }
 }
